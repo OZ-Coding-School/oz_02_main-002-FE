@@ -10,6 +10,7 @@ interface NavBottomProps {
 
 const NavBottom = ({ pathname }: NavBottomProps) => {
   const router = useRouter();
+
   return (
     <div className="h-navigation">
       <div className="w-full h-[3.75rem] flex justify-around">
