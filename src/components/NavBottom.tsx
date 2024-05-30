@@ -1,14 +1,11 @@
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { AiFillHome, AiOutlineUser } from 'react-icons/ai';
 import { BiCalendarCheck, BiSolidCalendarCheck, BiSolidUser } from 'react-icons/bi';
 import { BsListTask, BsListUl } from 'react-icons/bs';
 import { LiaHomeSolid } from 'react-icons/lia';
 
-interface NavBottomProps {
-  pathname: string;
-}
-
-const NavBottom = ({ pathname }: NavBottomProps) => {
+const NavBottom = () => {
+  const pathname = usePathname();
   const router = useRouter();
 
   return (

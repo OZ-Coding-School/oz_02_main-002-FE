@@ -4,6 +4,7 @@
 
 :root {
   font-family: var(--font-noto);
+  color: #3a3a3a;
 }
 
 * {
@@ -17,6 +18,7 @@ body {
   background-color: #decaff;
 }
 
-main {
+main,
+div {
   background-color: white;
 }

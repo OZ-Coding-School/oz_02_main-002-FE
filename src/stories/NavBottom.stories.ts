@@ -6,12 +6,6 @@ const meta = {
   component: NavBottom,
   parameters: {
     layout: 'centered',
-    nextjs: {
-      appDirectory: true,
-      //   navigation: {
-      //     pathname: '/',
-      //   },
-    },
   },
 } satisfies Meta<typeof NavBottom>;
 
@@ -19,25 +13,45 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Main: Story = {
-  args: {
-    pathname: '/',
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/',
+      },
+    },
   },
 };
 
 export const Monthly: Story = {
-  args: {
-    pathname: '/monthly',
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/monthly',
+      },
+    },
   },
 };
 
 export const TodoList: Story = {
-  args: {
-    pathname: '/todolist',
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/todolist',
+      },
+    },
   },
 };
 
 export const MyPage: Story = {
-  args: {
-    pathname: '/mypage',
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/mypage',
+      },
+    },
   },
 };
