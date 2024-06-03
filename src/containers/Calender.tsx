@@ -54,13 +54,13 @@ const CalenderList = () => {
         </div>
         <div className="w-full h-fit min-h-80 mt-7">
           <table className="w-full h-full text-center">
-            <thead className="border-y border-[#CACACA]">
-              <tr className="h-[1.4375rem] text-[#A4A4A4]">
+            <thead className="border-y border-black-200">
+              <tr className="h-[1.4375rem]">
                 {DAY_OF_WEEK.map((day, i) => {
                   return (
                     <td
                       key={i}
-                      className={`${i === 0 && 'text-lightRed'} ${i === 6 && 'text-lightBlue'} text-xs align-middle ${i !== 0 && i !== 6 && 'border-[0.5px]'} border-[#CACACA]`}>
+                      className={`${i === 0 && 'text-errorRed'} ${i === 6 && 'text-saturdayBlue'} text-xs align-middle ${i !== 0 && i !== 6 && 'border-[0.5px]'} border-[#CACACA]`}>
                       {day}
                     </td>
                   );
@@ -70,19 +70,19 @@ const CalenderList = () => {
             <tbody>
               {calender.map((week_arr, j) => {
                 return (
-                  <tr key={j} className="w-full h-[3.0625rem] border-y border-[#CACACA]">
+                  <tr key={j} className="w-full h-[3.0625rem] border-y border-black-200">
                     {week_arr.map((day, i) => {
                       return (
                         <td
                           key={i}
-                          className={`w-[3.1875rem] h-full text-[0.625rem] ${i !== 0 && i !== 6 && 'border-[0.5px]'} align-middle text-center border-[#CACACA] `}>
+                          className={`w-[3.1875rem] h-full text-xs ${i !== 0 && i !== 6 && 'border-[0.0313rem]'} align-middle text-center border-black-200 `}>
                           <div
-                            className={`w-5 h-5 rounded-full flex justify-center items-center ${today === Number(day) && todayMonth === currentMonth && todayYear === currentYear ? 'bg-[#B484FC] text-white' : ''} mx-auto`}>
+                            className={`w-[1.125rem] h-[1.125rem] rounded-full flex justify-center items-center ${today === Number(day) && todayMonth === currentMonth && todayYear === currentYear ? 'bg-primary-500 text-white' : ''} mx-auto`}>
                             {day}
                           </div>
                           {day !== '' && (
-                            <div className="w-full mx-auto">
-                              <div>87%</div>
+                            <div className="w-full mx-auto mt-1">
+                              <div className="h-3 flex justify-center items-center text-2xs">87%</div>
                               <ProgressBar rate={87} />
                             </div>
                           )}
