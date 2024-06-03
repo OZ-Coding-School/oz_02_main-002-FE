@@ -5,7 +5,7 @@ import Calender from '@/containers/Calender';
 const Monthly = () => {
   return (
     <main className="w-full h-full">
-      <section className="h-[calc(100%-5.875rem)] flex flex-col justify-center items-center">
+      <section className="container flex flex-col justify-center items-center">
         <div className="text-2xl font-bold">Monthly</div>
         <Calender />
         <div className="h-[4.0625rem]">

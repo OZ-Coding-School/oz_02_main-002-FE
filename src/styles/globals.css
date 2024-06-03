@@ -22,3 +22,7 @@ main,
 div {
   background-color: white;
 }
+
+.container {
+  height: calc(100% - 5.875rem);
+}
