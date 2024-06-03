@@ -1,4 +1,5 @@
 'use client';
+import ProgressBar from '@/components/ProgressBar';
 import SelectBox from '@/components/SelectBox';
 import { DAY_OF_WEEK, MONTH_OF_YEAR } from '@/constants';
 import useCreateCalender from '@/hooks/useCreateCalender';
@@ -11,8 +12,6 @@ const CalenderList = () => {
   const [currentYear, setCurrentYear] = useState(todayYear);
   const [currentMonth, setCurrentMonth] = useState(todayMonth);
   const [calender, setCalender] = useState<string[][]>([]);
-  const [isClickedYear, setIsClickedYear] = useState(false);
-  const [isClickedMonth, setIsClickedMonth] = useState(false);
   const possibleYear = ['2023년', '2024년'];
   const possibleMonth = MONTH_OF_YEAR;
 
@@ -39,38 +38,18 @@ const CalenderList = () => {
           <button onClick={() => changeMonth(-1)} className="calender_button_left">
             {/* <Left /> */}
           </button>
-          <div className="w-20 h-[1.875rem] text-center outline-0 group relative">
-            <button
-              className="w-full h-full border border-[#D1D1D1] rounded-[5px] z-10"
-              onClick={() => {
-                setIsClickedYear(true);
-              }}>
-              {currentYear}년
-            </button>
-            <SelectBox
-              possibleList={possibleYear}
-              isClickedProps={isClickedYear}
-              currentProps={currentYear}
-              setCurrentProps={setCurrentYear}
-              setIsClickedProps={setIsClickedYear}
-            />
-          </div>
-          <div className="w-20 h-[1.875rem] text-center outline-0 group relative">
-            <button
-              className="w-full h-full border border-[#D1D1D1] rounded-[5px] z-10"
-              onClick={() => {
-                setIsClickedMonth(true);
-              }}>
-              {currentMonth}월
-            </button>
-            <SelectBox
-              possibleList={possibleMonth}
-              isClickedProps={isClickedMonth}
-              currentProps={currentMonth}
-              setCurrentProps={setCurrentMonth}
-              setIsClickedProps={setIsClickedMonth}
-            />
-          </div>
+          <SelectBox
+            type={'년'}
+            possibleList={possibleYear}
+            currentProps={currentYear}
+            setCurrentProps={setCurrentYear}
+          />
+          <SelectBox
+            type={'월'}
+            possibleList={possibleMonth}
+            currentProps={currentMonth}
+            setCurrentProps={setCurrentMonth}
+          />
           <button onClick={() => changeMonth(1)}>{/* <Right /> */}</button>
         </div>
         <div className="w-full h-fit min-h-80 mt-7">
@@ -91,13 +70,22 @@ const CalenderList = () => {
             <tbody>
               {calender.map((week_arr, j) => {
                 return (
-                  <tr key={j} className="h-[3.0625rem] border-y border-[#CACACA]">
+                  <tr key={j} className="w-full h-[3.0625rem] border-y border-[#CACACA]">
                     {week_arr.map((day, i) => {
                       return (
                         <td
                           key={i}
-                          className={`text-[0.5rem] ${today === Number(day) && todayMonth === currentMonth && todayYear === currentYear ? 'text-veryPurple' : ''} text-xs align-middle ${i !== 0 && i !== 6 && 'border-[0.5px]'} border-[#CACACA]`}>
-                          {day}
+                          className={`w-[3.1875rem] h-full text-[0.625rem] ${i !== 0 && i !== 6 && 'border-[0.5px]'} align-middle text-center border-[#CACACA] `}>
+                          <div
+                            className={`w-5 h-5 rounded-full flex justify-center items-center ${today === Number(day) && todayMonth === currentMonth && todayYear === currentYear ? 'bg-[#B484FC] text-white' : ''} mx-auto`}>
+                            {day}
+                          </div>
+                          {day !== '' && (
+                            <div className="w-full mx-auto">
+                              <div>87%</div>
+                              <ProgressBar rate={87} />
+                            </div>
+                          )}
                         </td>
                       );
                     })}

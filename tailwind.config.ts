@@ -26,6 +26,15 @@ const config: Config = {
         mobile: '52.75rem',
         navigation: '5.875rem',
       },
+      animation: {
+        fadeInDown: '0.5s ease 0s fadeInDown',
+      },
+      keyframes: {
+        fadeInDown: {
+          '0%': { height: '0', opacity: '0' },
+          '100%': { height: 'fit', transform: 'translateY(0)', opacity: '1' },
+        },
+      },
     },
   },
   plugins: [],
