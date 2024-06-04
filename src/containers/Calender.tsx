@@ -15,44 +15,40 @@ const CalenderList = () => {
   const [calender, setCalender] = useState<string[][]>([]);
   const possibleYear = ['2023년', '2024년'];
   const possibleMonth = MONTH_OF_YEAR;
-  let direction = useSwipeDirection();
-  console.log(direction);
+  const { direction, setDirection } = useSwipeDirection();
 
   useEffect(() => {
     if (direction === 'left') {
-      setCurrentMonth(prev => prev - 1);
-      console.log('go left');
-    } else if (direction === 'right') {
       setCurrentMonth(prev => prev + 1);
-      console.log('go right');
+    } else if (direction === 'right') {
+      setCurrentMonth(prev => prev - 1);
     }
-    direction = '';
-    console.log(direction);
-  }, [direction, setCurrentMonth]);
+    setDirection('');
+  }, [direction]);
 
   useEffect(() => {
     if (currentMonth < 1) {
+      if (currentYear === 2023) {
+        setCurrentMonth(prev => prev + 1);
+        return;
+      }
       setCurrentYear(prev => prev - 1);
       setCurrentMonth(12);
     } else if (currentMonth > 12) {
+      if (currentYear === 2024) {
+        setCurrentMonth(prev => prev - 1);
+        return;
+      }
       setCurrentYear(prev => prev + 1);
       setCurrentMonth(1);
     }
     setCalender(() => useCreateCalender(currentYear, currentMonth));
   }, [currentYear, currentMonth]);
 
-  // 화살표를 클릭했을 때 ( 왼쪽 | 오른쪽 )
-  const changeMonth = (diff: number) => {
-    setCurrentMonth(prev => prev + diff);
-  };
-
   return (
     <div className="w-full">
       <div className="w-full p-[1.125rem]">
         <div className="h-10 mt-8 flex justify-center items-center space-x-[0.625rem]">
-          <button onClick={() => changeMonth(-1)} className="calender_button_left">
-            {/* <Left /> */}
-          </button>
           <SelectBox
             type={'년'}
             possibleList={possibleYear}
@@ -65,7 +61,6 @@ const CalenderList = () => {
             currentProps={currentMonth}
             setCurrentProps={setCurrentMonth}
           />
-          <button onClick={() => changeMonth(1)}>{/* <Right /> */}</button>
         </div>
         <div className="w-full h-fit min-h-80 mt-7" id="calender">
           <table className="w-full h-full text-center">
@@ -82,7 +77,7 @@ const CalenderList = () => {
                 })}
               </tr>
             </thead>
-            <tbody>
+            <tbody className={`${direction === '' && 'animate-fadeIn'}`}>
               {calender.map((week_arr, j) => {
                 return (
                   <tr key={j} className="w-full h-[3.0625rem] border-y border-black-200">

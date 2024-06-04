@@ -11,27 +11,25 @@ const useSwipeDirection = () => {
 
   function initTouch(e: TouchEvent) {
     initialX = e.changedTouches[0].pageX;
-    console.log('initialX', initialX);
   }
 
   function initClick(e: MouseEvent) {
     initialX = e.pageX;
-    console.log('initialX', initialX);
   }
 
   function swipeTouchDirection(e: TouchEvent) {
     if (initialX !== null) {
       const currentX = e.changedTouches[0].pageX;
-      console.log('currentX', currentX);
 
       const diffX = initialX - currentX;
-      console.log(diffX);
       initialX = null;
 
       if (diffX < 0) {
         setDirection('right');
       } else if (diffX > 0) {
         setDirection('left');
+      } else {
+        setDirection('');
       }
     }
   }
@@ -39,16 +37,16 @@ const useSwipeDirection = () => {
   function swipeMouseDirection(e: MouseEvent) {
     if (initialX !== null) {
       const currentX = e.pageX;
-      console.log('currentX', currentX);
 
       let diffX = initialX - currentX;
-      console.log(diffX);
       initialX = null;
 
       if (diffX < 0) {
         setDirection('right');
       } else if (diffX > 0) {
         setDirection('left');
+      } else {
+        setDirection('');
       }
     }
   }
@@ -66,7 +64,7 @@ const useSwipeDirection = () => {
     };
   }, [initTouch, swipeTouchDirection, initClick, swipeMouseDirection]);
 
-  return direction;
+  return { direction, setDirection };
 };
 
 export default useSwipeDirection;

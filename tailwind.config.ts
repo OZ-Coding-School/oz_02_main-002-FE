@@ -68,9 +68,14 @@ const config: Config = {
         navigation: '5.875rem',
       },
       animation: {
+        fadeIn: '0.6s ease 0s fadeIn',
         fadeInDown: '0.5s ease 0s fadeInDown',
       },
       keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
         fadeInDown: {
           '0%': { height: '0', opacity: '0' },
           '100%': { height: 'fit', transform: 'translateY(0)', opacity: '1' },
