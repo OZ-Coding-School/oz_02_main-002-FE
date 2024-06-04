@@ -4,7 +4,7 @@ import { BiCalendarCheck, BiSolidCalendarCheck, BiSolidUser } from 'react-icons/
 import { BsListTask, BsListUl } from 'react-icons/bs';
 import { LiaHomeSolid } from 'react-icons/lia';
 
-const NavBottom = () => {
+export default function NavBottom() {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -34,6 +34,4 @@ const NavBottom = () => {
       </div>
     </div>
   );
-};
-
-export default NavBottom;
+}
