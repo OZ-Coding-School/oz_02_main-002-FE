@@ -24,9 +24,9 @@ const useSwipeDirection = () => {
       const diffX = initialX - currentX;
       initialX = null;
 
-      if (diffX < 0) {
+      if (diffX < -20) {
         setDirection('right');
-      } else if (diffX > 0) {
+      } else if (diffX > 20) {
         setDirection('left');
       } else {
         setDirection('');
@@ -41,9 +41,9 @@ const useSwipeDirection = () => {
       let diffX = initialX - currentX;
       initialX = null;
 
-      if (diffX < 0) {
+      if (diffX < -20) {
         setDirection('right');
-      } else if (diffX > 0) {
+      } else if (diffX > 20) {
         setDirection('left');
       } else {
         setDirection('');
