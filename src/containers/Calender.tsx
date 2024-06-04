@@ -3,6 +3,7 @@ import ProgressBar from '@/components/ProgressBar';
 import SelectBox from '@/components/SelectBox';
 import { DAY_OF_WEEK, MONTH_OF_YEAR } from '@/constants';
 import useCreateCalender from '@/hooks/useCreateCalender';
+import useSwipeDirection from '@/hooks/useSwipeDirection';
 import { useEffect, useState } from 'react';
 
 const CalenderList = () => {
@@ -14,6 +15,20 @@ const CalenderList = () => {
   const [calender, setCalender] = useState<string[][]>([]);
   const possibleYear = ['2023년', '2024년'];
   const possibleMonth = MONTH_OF_YEAR;
+  let direction = useSwipeDirection();
+  console.log(direction);
+
+  useEffect(() => {
+    if (direction === 'left') {
+      setCurrentMonth(prev => prev - 1);
+      console.log('go left');
+    } else if (direction === 'right') {
+      setCurrentMonth(prev => prev + 1);
+      console.log('go right');
+    }
+    direction = '';
+    console.log(direction);
+  }, [direction, setCurrentMonth]);
 
   useEffect(() => {
     if (currentMonth < 1) {
@@ -52,7 +67,7 @@ const CalenderList = () => {
           />
           <button onClick={() => changeMonth(1)}>{/* <Right /> */}</button>
         </div>
-        <div className="w-full h-fit min-h-80 mt-7">
+        <div className="w-full h-fit min-h-80 mt-7" id="calender">
           <table className="w-full h-full text-center">
             <thead className="border-y border-black-200">
               <tr className="h-[1.4375rem]">
