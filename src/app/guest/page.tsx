@@ -49,7 +49,7 @@ export default function Guest() {
     },
   ];
   return (
-    <section className="w-full h-full relative">
+    <main className="w-full h-full relative">
       <div className="w-full h-full bg-saturdayBlue absolute">배경</div>
       <div className="w-full h-[calc(100%-2.6875rem)] absolute z-10 pt-11 px-[1.4375rem]">
         <button
@@ -73,6 +73,6 @@ export default function Guest() {
         </div>
       </div>
       <div className="w-full h-[2.6875rem] border-y border-black-200 bg-white absolute bottom-0">공통 컴포넌트</div>
-    </section>
+    </main>
   );
 }
