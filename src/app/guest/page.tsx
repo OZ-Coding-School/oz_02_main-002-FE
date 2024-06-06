@@ -3,7 +3,7 @@ import GuestListItem from '@/components/GuestListItem';
 import NavBottom from '@/components/NavBottom';
 import { FaUserFriends } from 'react-icons/fa';
 
-export default function GuestBook() {
+export default function Guest() {
   let guestBookList = [
     {
       name: '방명록1',
@@ -13,12 +13,38 @@ export default function GuestBook() {
     {
       name: '방명록2',
       date: '2021-08-02',
-      content: '안녕하세요',
+      content:
+        '안녕하세요~ 방명록 내용 뭘 써야될까 으아ㅏ아아ㅏㅏ아ㅏㅏ아ㅏㅏㅇ 어디까지 적을 수 있는 거예요...? 더 길게 적어야되는데 뭘 적어야될까 루루루루루ㅜ루루룰룰',
     },
     {
       name: '방명록3',
       date: '2021-08-03',
       content: '안녕하세요',
+    },
+    {
+      name: '방명록4',
+      date: '2021-08-04',
+      content: '안녕하세요',
+    },
+    {
+      name: '방명록5',
+      date: '2021-08-05',
+      content: '안녕하세요 띄어쓰기 되나..?    안되네 엔터도 안먹히네',
+    },
+    {
+      name: '방명록6',
+      date: '2021-08-05',
+      content: '안녕하세요 띄어쓰기 되나..?    안되네 엔터도 안먹히네',
+    },
+    {
+      name: '방명록7',
+      date: '2021-08-05',
+      content: '안녕하세요 띄어쓰기 되나..?    안되네 엔터도 안먹히네',
+    },
+    {
+      name: '방명록8',
+      date: '2021-08-05',
+      content: '안녕하세요 엔터 들어갈 수 있게 해야되나..?',
     },
   ];
   return (
@@ -32,8 +58,8 @@ export default function GuestBook() {
               <FaUserFriends size={32} />
             </span>
           </button>
-          <div className="w-[21.5rem] h-[34.6875rem] rounded-[5px] bg-white border border-black-200 mt-[1.375rem]">
-            <ul className="py-3">
+          <div className="w-[21.5rem] h-[34.6875rem] rounded-[5px] bg-white border border-black-200 mt-[1.375rem] overflow-auto scroll-bar">
+            <ul className="py-2">
               {guestBookList.map((item, index) => {
                 return (
                   <li key={index} className="border-b-[0.5px] border-black-200">

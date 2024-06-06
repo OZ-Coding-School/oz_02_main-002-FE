@@ -27,3 +27,17 @@ body {
   width: 100%;
   height: calc(100% - 5.875rem);
 }
+
+.scroll-bar::-webkit-scrollbar {
+  width: 8px; /* 스크롤바의 너비 */
+}
+
+.scroll-bar::-webkit-scrollbar-thumb {
+  background: #ffffff; /* 스크롤바의 색상 */
+  border-radius: 30px;
+  border: 1px solid #c9c9c9;
+}
+
+.scroll-bar::-webkit-scrollbar-track {
+  background: #c9c9c9; /*스크롤바 뒷 배경 색상*/
+}
