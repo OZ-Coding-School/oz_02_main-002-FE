@@ -11,8 +11,8 @@ const NavBottom = () => {
   return (
     <div className="h-navigation">
       <div className="w-full h-[3.75rem] flex justify-around">
-        <button className="w-16 flex justify-center items-center" onClick={() => router.push('/')}>
-          {pathname === '/' ? <AiFillHome size={32} color="#873DFF" /> : <LiaHomeSolid size={32} />}
+        <button className="w-16 flex justify-center items-center" onClick={() => router.push('/main')}>
+          {pathname === '/main' ? <AiFillHome size={32} color="#873DFF" /> : <LiaHomeSolid size={32} />}
         </button>
         <button className="w-16 flex justify-center items-center" onClick={() => router.push('/monthly')}>
           {pathname === '/monthly' ? <BiSolidCalendarCheck size={32} color="#873DFF" /> : <BiCalendarCheck size={32} />}
