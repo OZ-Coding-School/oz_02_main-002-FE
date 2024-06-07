@@ -1,5 +1,5 @@
 'use client';
-import NickNameList from '@/components/NickNameList';
+import NickNameList from '@/components/guest/NickNameList';
 import { useState } from 'react';
 import { MdSearch } from 'react-icons/md';
 

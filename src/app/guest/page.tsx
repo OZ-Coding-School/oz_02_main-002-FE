@@ -1,5 +1,5 @@
 'use client';
-import GuestListItem from '@/components/GuestListItem';
+import GuestListItem from '@/components/guest/GuestListItem';
 import { useRouter } from 'next/navigation';
 import { FaUserFriends } from 'react-icons/fa';
 
