@@ -18,7 +18,9 @@ export default function NickNameList() {
     <ul className="w-full h-[31.25rem] border-b border-black-200 overflow-auto scroll-bar">
       {nickNames.map((nickName, index) => {
         return (
-          <li key={index} className="h-[3.6875rem] border-b-[0.5px] border-black-200 flex items-center pl-[0.8125rem]">
+          <li
+            key={index}
+            className="h-[3.6875rem] border-b-[0.5px] border-black-200 text-lg flex items-center pl-[0.8125rem] cursor-pointer active:bg-primary-200 active:text-white">
             {nickName}
           </li>
         );
