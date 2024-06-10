@@ -25,7 +25,7 @@ function Main() {
           </div>
           <div>
             <div className="w-5/6 h-4 rounded-3xl bg-black-100 mx-auto">
-              <div className=" w-1/2 h-4 rounded-3xl absolute bg-primary-500"></div>
+              <div className="w-1/2 h-4 rounded-3xl bg-primary-500"></div>
             </div>
           </div>
         </header>
@@ -55,7 +55,7 @@ function Main() {
                 <div className="text-sm font-bold">1개 남음</div>
               </div>
               <MainPetButton icon={<BiDonateHeart size="30" />} label="쓰다듬기" />
-              <MainPetButton icon={<RiContactsBook2Line size="30" />} label="방명록" />
+              <MainPetButton icon={<RiContactsBook2Line size="30" />} label="방명록" link='/guest'/>
             </div>
           </section>
         </main>
