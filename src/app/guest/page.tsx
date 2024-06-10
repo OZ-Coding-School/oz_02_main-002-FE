@@ -93,7 +93,7 @@ export default function Guest() {
         <div
           className={`w-[21.5rem] ${isUser ? 'h-[34.6875rem] mt-[1.375rem]' : 'h-[39.625rem]'} rounded-[5px] bg-white border border-black-200 relative flex flex-col`}>
           {!isUser && (
-            <div className="w-[21.5rem] h-[3.375rem] border-b-[0.5px] border-black-200 text-lg font-semibold flex justify-center items-center">
+            <div className="w-[21.5rem] h-[3.6rem] border-b-[0.5px] border-black-200 text-lg font-semibold flex justify-center items-center">
               까피까피츄님의 방명록
             </div>
           )}
@@ -110,7 +110,7 @@ export default function Guest() {
           </div>
         </div>
       </div>
-      <div className="w-full h-[2.6875rem] border-y border-black-200 bg-white absolute bottom-0">
+      <div className="w-full h-[2.6875rem] bg-white absolute bottom-0">
         <form className="w-full h-full flex" onSubmit={onSubmit}>
           <input
             type="text"
@@ -121,7 +121,7 @@ export default function Guest() {
           />
           <button
             disabled={userInput.length === 0}
-            className={`flex items-center justify-center w-[2.8125rem] h-full ${userInput.length !== 0 ? 'bg-primary-400' : 'bg-black-200'} active:bg-primary-200`}>
+            className={`w-[2.8125rem] h-full flex items-center justify-center ${userInput.length !== 0 ? 'bg-primary-400' : 'bg-black-200'} active:bg-primary-200`}>
             <AiOutlinePlus className="text-[2rem] text-white" />
           </button>
         </form>
