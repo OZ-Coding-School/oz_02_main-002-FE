@@ -8,7 +8,7 @@ function PetStateMessage({ petId }: PetStateMessageProps) {
   // const [petState, setPetState] = useState('');
 
   // useEffect(() => {
-  //   fetch(`/api`) //API 엔드포인트
+  //   fetch(`/api`)
   //     .then(response => response.json())
   //     .then(data => setPetState(data.state));
   // }, [petId]);
