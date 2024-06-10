@@ -8,7 +8,7 @@ interface SelectBoxProps {
   setCurrentProps: (props: number) => void;
 }
 
-const SelectBox: React.FC<SelectBoxProps> = ({ type, possibleList, currentProps, setCurrentProps }) => {
+export default function SelectBox({ type, possibleList, currentProps, setCurrentProps }: SelectBoxProps) {
   const [isClickedSelectBox, setIsClickedSelectBox] = useState(false);
   const outsideRef = useOutsideClick(() => setIsClickedSelectBox(false));
 
@@ -42,6 +42,4 @@ const SelectBox: React.FC<SelectBoxProps> = ({ type, possibleList, currentProps,
       </ul>
     </div>
   );
-};
-
-export default SelectBox;
+}
