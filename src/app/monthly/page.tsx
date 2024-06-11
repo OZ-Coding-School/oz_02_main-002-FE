@@ -1,13 +1,13 @@
 'use client';
 import NavBottom from '@/components/NavBottom';
-import Calender from '@/containers/Calender';
+import Calendar from '@/containers/Calendar';
 
 export default function Monthly() {
   return (
     <main className="w-full h-full">
       <section className="wrap-section flex flex-col justify-center items-center">
         <div className="text-2xl font-bold">Monthly</div>
-        <Calender />
+        <Calendar />
         <div className="h-[4.0625rem] text-center">
           <div className="font-medium">
             <span className="text-primary-600">3일</span> 연속 목표 달성!

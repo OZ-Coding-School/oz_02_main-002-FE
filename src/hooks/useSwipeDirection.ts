@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 
 export default function useSwipeDirection() {
-  let calender: HTMLDivElement | null = null;
+  let calendar: HTMLDivElement | null = null;
   const [direction, setDirection] = useState('');
   let initialX: number | null = null;
 
   if (typeof document !== 'undefined') {
-    calender = document.querySelector('#calender');
+    calendar = document.querySelector('#calendar');
   }
 
   function initTouch(e: TouchEvent) {
@@ -52,15 +52,15 @@ export default function useSwipeDirection() {
   }
 
   useEffect(() => {
-    calender?.addEventListener('touchstart', initTouch);
-    calender?.addEventListener('touchend', swipeTouchDirection);
-    calender?.addEventListener('mousedown', initClick);
-    calender?.addEventListener('mouseup', swipeMouseDirection);
+    calendar?.addEventListener('touchstart', initTouch);
+    calendar?.addEventListener('touchend', swipeTouchDirection);
+    calendar?.addEventListener('mousedown', initClick);
+    calendar?.addEventListener('mouseup', swipeMouseDirection);
     return () => {
-      calender?.removeEventListener('touchstart', initTouch);
-      calender?.removeEventListener('touchend', swipeTouchDirection);
-      calender?.removeEventListener('mousedown', initClick);
-      calender?.removeEventListener('mouseup', swipeMouseDirection);
+      calendar?.removeEventListener('touchstart', initTouch);
+      calendar?.removeEventListener('touchend', swipeTouchDirection);
+      calendar?.removeEventListener('mousedown', initClick);
+      calendar?.removeEventListener('mouseup', swipeMouseDirection);
     };
   }, [initTouch, swipeTouchDirection, initClick, swipeMouseDirection]);
 

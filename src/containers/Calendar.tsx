@@ -2,17 +2,17 @@
 import ProgressBar from '@/components/monthly/ProgressBar';
 import SelectBox from '@/components/SelectBox';
 import { DAY_OF_WEEK, MONTH_OF_YEAR } from '@/constants';
-import useCreateCalender from '@/hooks/useCreateCalender';
+import useCreateCalendar from '@/hooks/useCreateCalendar';
 import useSwipeDirection from '@/hooks/useSwipeDirection';
 import { useEffect, useState } from 'react';
 
-export default function CalenderList() {
+export default function Calendar() {
   const today = new Date().getDate();
   const todayMonth = new Date().getMonth() + 1;
   const todayYear = new Date().getFullYear();
   const [currentYear, setCurrentYear] = useState(todayYear);
   const [currentMonth, setCurrentMonth] = useState(todayMonth);
-  const [calender, setCalender] = useState<string[][]>([]);
+  const [calendar, setCalendar] = useState<string[][]>([]);
   const possibleYear = ['2023년', '2024년'];
   const possibleMonth = MONTH_OF_YEAR;
   const { direction, setDirection } = useSwipeDirection();
@@ -42,7 +42,7 @@ export default function CalenderList() {
       setCurrentYear(prev => prev + 1);
       setCurrentMonth(1);
     }
-    setCalender(() => useCreateCalender(currentYear, currentMonth));
+    setCalendar(() => useCreateCalendar(currentYear, currentMonth));
   }, [currentYear, currentMonth]);
 
   return (
@@ -62,7 +62,7 @@ export default function CalenderList() {
             setCurrentProps={setCurrentMonth}
           />
         </div>
-        <div className="w-full h-fit min-h-80 mt-7" id="calender">
+        <div className="w-full h-fit min-h-80 mt-7" id="calendar">
           <table className="w-full h-full text-center">
             <thead className="border-y border-black-200">
               <tr className="h-[1.4375rem]">
@@ -78,7 +78,7 @@ export default function CalenderList() {
               </tr>
             </thead>
             <tbody className={`${direction === '' && 'animate-fadeIn'}`}>
-              {calender.map((week_arr, j) => {
+              {calendar.map((week_arr, j) => {
                 return (
                   <tr key={j} className="w-full h-[3.0625rem] border-y border-black-200">
                     {week_arr.map((day, i) => {
