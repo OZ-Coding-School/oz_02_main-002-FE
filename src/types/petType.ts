@@ -14,3 +14,20 @@ export interface petType {
       image: string;
   }
 }
+
+// export interface petTypeEX {
+//   user: 0;
+//   point: 0;
+//   hunger_degree: '';
+//   random_boxes: 0,
+//   pet_rating: 0,
+//   primary_accessory: '';
+//   primary_background: {
+//       item_name: "";
+//       image: "";
+//   },
+//   primary_pet: {
+//       pet_name: "";
+//       image: "";
+//   }
+// }

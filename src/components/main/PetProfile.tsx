@@ -1,8 +1,8 @@
 import React from 'react'
 
 interface PetHeaderProps {
-  name ?: string;
-  level?: number;
+  name: string;
+  level: number;
   progress: number;
   maxProgress: 100;
 }
