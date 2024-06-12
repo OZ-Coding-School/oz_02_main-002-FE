@@ -3,7 +3,7 @@ import { postsClient } from './instance';
 
 export async function getPostsList(userId: number | undefined) {
   try {
-    const response = await postsClient.get(`/posts/3`, {
+    const response = await postsClient.get(`/posts/2`, {
       withCredentials: true,
     });
     console.log(response.data);

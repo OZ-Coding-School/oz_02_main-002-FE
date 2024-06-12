@@ -1,7 +1,7 @@
 'use client';
 import ProgressBar from '@/components/monthly/ProgressBar';
 import SelectBox from '@/components/SelectBox';
-import { DAY_OF_WEEK, MONTH_OF_YEAR } from '@/constants';
+import { DAY_OF_WEEK } from '@/constants';
 import useCreateCalendar from '@/hooks/useCreateCalendar';
 import useSwipeDirection from '@/hooks/useSwipeDirection';
 import { useEffect, useState } from 'react';
@@ -9,6 +9,7 @@ import { getPostsList } from '../services/getPostsList';
 import { useAtomValue } from 'jotai';
 import { userAtom } from '@/atoms/atoms';
 import { postType } from '@/types/PostType';
+import useSetOptions from '@/hooks/useSetOptions';
 
 export default function Calendar() {
   const today = new Date().getDate();
@@ -20,113 +21,58 @@ export default function Calendar() {
   const [postsList, setPostsList] = useState<postType[]>([]);
   const [startDate, setStartDate] = useState('');
   const [lastDate, setLastDate] = useState('');
-  const [possibleYear, setPossibleYear] = useState<number[]>([]);
-  const [possibleMonth, setPossibleMonth] = useState<number[]>([]);
   const { direction, setDirection } = useSwipeDirection();
+  const { yearOptions, monthOptions } = useSetOptions({
+    startDate,
+    lastDate,
+    currentYear,
+    currentMonth,
+    setCurrentMonth,
+  });
   const user = useAtomValue(userAtom);
 
   useEffect(() => {
     async function getPosts() {
       const response = await getPostsList(user?.id);
       setPostsList(response);
-      console.log(today);
+      console.log('response', response);
       if (response.length !== 0) {
-        setStartDate(response[0].todo_date.slice(0, 7));
-        setLastDate(response[response.length - 1].todo_date.slice(0, 7));
+        const dateList = response.map((res: postType) => res.todo_date.replace(/[^0-9]/g, ''));
+        setStartDate(Math.min(...dateList).toString());
+        setLastDate(Math.max(...dateList).toString());
       } else {
         setStartDate(todayYear.toString() + todayMonth.toString().padStart(2, '0'));
         setLastDate(todayYear.toString() + todayMonth.toString().padStart(2, '0'));
       }
-      // const startYear = Number(response[0].todo_date.slice(0, 4));
-      // const lastYear = Number(response[response.length - 1].todo_date.slice(0, 4));
-      // const startMonth = Number(response[0].todo_date.slice(5, 7));
-      // console.log('start month', startMonth);
-      // const lastMonth = Number(response[response.length - 1].todo_date.substring(5, 7));
-      // console.log('last month', lastMonth);
-      // let possibleYearList = [];
-      // let possibleMonthList = [];
-      // if (possibleYear[0] !== startYear) {
-      //   possibleYearList.push(startYear);
-      // }
-      // if (possibleMonth[0] !== startMonth) {
-      //   possibleMonthList.push(startMonth);
-      // }
-      // if (startYear !== lastYear) {
-      //   possibleYearList.push(lastYear);
-      // }
-      // if (startMonth !== lastMonth) {
-      //   possibleMonthList.push(lastMonth);
-      // }
-      // setPossibleYear(possibleYearList);
-      // setPossibleMonth(possibleMonthList);
     }
     getPosts();
   }, []);
 
   useEffect(() => {
-    const startYear = Number(startDate.slice(0, 4));
-    const lastYear = Number(lastDate.slice(0, 4));
-    const startMonth = Number(startDate.slice(5, 7));
-    const lastMonth = Number(lastDate.slice(5, 7));
-    if (currentYear === startYear && startYear !== lastYear) {
-      const startMonth = Number(startDate.slice(5, 7));
-      const lastMonth = 12;
-    } else if (currentYear === lastYear) {
-      const startMonth = 1;
-      const lastMonth = Number(lastDate.slice(5, 7));
-    } else if (currentYear > startYear && currentYear < lastYear) {
-      const startMonth = 1;
-      const lastMonth = 12;
-    }
-    if (possibleYear[0] !== startYear) {
-      setPossibleYear([...possibleYear, startYear]);
-    }
-    if (possibleMonth[0] !== startMonth) {
-      setPossibleMonth([...possibleMonth, startMonth]);
-    }
-    if (startYear !== lastYear) {
-      setPossibleYear([...possibleYear, lastYear]);
-    }
-    if (startMonth !== lastMonth) {
-      setPossibleMonth([...possibleMonth, lastMonth]);
-    }
-    postsList.map(post => {
-      console.log(post.todo_date);
-    });
-    console.log(possibleYear, possibleMonth);
-  }, [startDate, lastDate]);
-
-  useEffect(() => {
     if (direction === 'left') {
-      console.log(currentMonth, possibleMonth[possibleMonth.length - 1]);
-      if (currentYear === Number(startDate.slice(0, 4)) && currentMonth + 1 < possibleMonth[possibleMonth.length - 1])
+      if (
+        currentYear === yearOptions[yearOptions.length - 1] &&
+        currentMonth + 1 > monthOptions[monthOptions.length - 1]
+      )
         return;
       else setCurrentMonth(prev => prev + 1);
     } else if (direction === 'right') {
-      if (currentMonth - 1 < possibleMonth[0]) return;
+      if (currentYear === yearOptions[0] && currentMonth - 1 < monthOptions[0]) return;
       else setCurrentMonth(prev => prev - 1);
     }
     setDirection('');
-  }, [direction, possibleMonth]);
+  }, [direction]);
 
   useEffect(() => {
     if (currentMonth < 1) {
-      if (currentYear - 1 < possibleYear[0]) {
-        setCurrentMonth(prev => prev + 1);
-        return;
-      }
       setCurrentYear(prev => prev - 1);
       setCurrentMonth(12);
     } else if (currentMonth > 12) {
-      if (currentYear + 1 > possibleYear[possibleYear.length - 1]) {
-        setCurrentMonth(prev => prev - 1);
-        return;
-      }
       setCurrentYear(prev => prev + 1);
       setCurrentMonth(1);
     }
     setCalendar(() => useCreateCalendar(currentYear, currentMonth));
-  }, [currentYear, currentMonth, possibleYear]);
+  }, [currentYear, currentMonth]);
 
   return (
     <div className="w-full">
@@ -134,13 +80,13 @@ export default function Calendar() {
         <div className="h-10 mt-8 flex justify-center items-center space-x-[0.625rem]">
           <SelectBox
             type={'년'}
-            possibleList={possibleYear}
+            possibleList={yearOptions}
             currentProps={currentYear}
             setCurrentProps={setCurrentYear}
           />
           <SelectBox
             type={'월'}
-            possibleList={possibleMonth}
+            possibleList={monthOptions}
             currentProps={currentMonth}
             setCurrentProps={setCurrentMonth}
           />
@@ -174,12 +120,18 @@ export default function Calendar() {
                               className={`w-[1.125rem] h-[1.125rem] rounded-full flex justify-center items-center ${today === Number(day) && todayMonth === currentMonth && todayYear === currentYear ? 'bg-primary-500 text-white' : ''} mx-auto`}>
                               {day}
                             </div>
-                            {day !== '' && (
-                              <div className="w-full mx-auto mt-1">
-                                <div className="h-3 flex justify-center items-center text-2xs">87%</div>
-                                <ProgressBar rate={87} />
-                              </div>
-                            )}
+                            {postsList.map((post, i) => {
+                              return (
+                                Number(post.todo_date.slice(0, 4)) === currentYear &&
+                                Number(post.todo_date.slice(5, 7)) === currentMonth &&
+                                Number(post.todo_date.slice(8, 10)) === today && (
+                                  <div key={i} className="w-full mx-auto mt-1">
+                                    <div className="h-3 flex justify-center items-center text-2xs">87%</div>
+                                    <ProgressBar rate={87} />
+                                  </div>
+                                )
+                              );
+                            })}
                           </button>
                         </td>
                       );
