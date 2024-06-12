@@ -35,7 +35,6 @@ export default function useSetOptions({
 
   const yearOptions = Array.from({ length: lastYear - startYear + 1 }, (_, i) => startYear + i);
   const monthOptions = getMonthOptions(currentYear);
-  console.log(yearOptions, monthOptions);
 
   useEffect(() => {
     if (currentMonth < monthOptions[0]) {
