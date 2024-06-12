@@ -19,7 +19,7 @@ const Nickname = () => {
   const [newNickname, setNewNickname] = useState('');
   const [csrfToken, setCsrfToken] = useState<string | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [userInfo] = useAtom(userAtom);
+  const [userInfo, setUserInfo] = useAtom(userAtom);
   console.log(userInfo);
   useEffect(() => {
     const csrfToken = getCookieValue('csrftoken');
@@ -45,6 +45,7 @@ const Nickname = () => {
           withCredentials: true,
         });
         setUser(response.data);
+        setUserInfo(response.data);
       } catch (error) {
         console.error('Failed to fetch user info:', error);
       }
