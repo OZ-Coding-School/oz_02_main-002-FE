@@ -4,7 +4,7 @@ import SelectBox from '@/components/SelectBox';
 import { DAY_OF_WEEK } from '@/constants';
 import useCreateCalendar from '@/hooks/useCreateCalendar';
 import useSwipeDirection from '@/hooks/useSwipeDirection';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getPostsList } from '../services/getPostsList';
 import { useAtomValue } from 'jotai';
 import { userAtom } from '@/atoms/atoms';
@@ -17,11 +17,13 @@ export default function Calendar() {
   const todayYear = new Date().getFullYear();
   const [currentYear, setCurrentYear] = useState(todayYear);
   const [currentMonth, setCurrentMonth] = useState(todayMonth);
+  const { data: posts, isLoading: isPostsLoading, error: isPostsError } = getPostsList(2);
   const [calendar, setCalendar] = useState<string[][]>([]);
   const [postsList, setPostsList] = useState<postType[]>([]);
   const [startDate, setStartDate] = useState('');
   const [lastDate, setLastDate] = useState('');
-  const { direction, setDirection } = useSwipeDirection();
+  const calendarRef = useRef<HTMLDivElement | null>(null);
+  const { direction, setDirection } = useSwipeDirection(calendarRef);
   const { yearOptions, monthOptions } = useSetOptions({
     startDate,
     lastDate,
@@ -32,20 +34,16 @@ export default function Calendar() {
   const user = useAtomValue(userAtom);
 
   useEffect(() => {
-    async function getPosts() {
-      const response = await getPostsList(user?.id);
-      setPostsList(response);
-      if (response.length !== 0) {
-        const dateList = response.map((res: postType) => res.todo_date.replace(/[^0-9]/g, ''));
-        setStartDate(Math.min(...dateList).toString());
-        setLastDate(Math.max(...dateList).toString());
-      } else {
-        setStartDate(todayYear.toString() + todayMonth.toString().padStart(2, '0'));
-        setLastDate(todayYear.toString() + todayMonth.toString().padStart(2, '0'));
-      }
+    if (posts !== undefined) {
+      setPostsList(posts);
+      const dateList = posts.map((res: postType) => res.todo_date.replace(/[^0-9]/g, ''));
+      setStartDate(Math.min(...dateList).toString());
+      setLastDate(Math.max(...dateList).toString());
+    } else {
+      setStartDate(todayYear.toString() + todayMonth.toString().padStart(2, '0'));
+      setLastDate(todayYear.toString() + todayMonth.toString().padStart(2, '0'));
     }
-    getPosts();
-  }, []);
+  }, [posts]);
 
   useEffect(() => {
     if (direction === 'left') {
@@ -73,6 +71,14 @@ export default function Calendar() {
     setCalendar(() => useCreateCalendar(currentYear, currentMonth));
   }, [currentYear, currentMonth]);
 
+  if (isPostsLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (isPostsError) {
+    return <div>Error loading data</div>;
+  }
+
   return (
     <div className="w-full">
       <div className="w-full p-[1.125rem]">
@@ -90,7 +96,7 @@ export default function Calendar() {
             setCurrentProps={setCurrentMonth}
           />
         </div>
-        <div className="w-full h-fit min-h-80 mt-7" id="calendar">
+        <div ref={calendarRef} className="w-full h-fit min-h-80 mt-7">
           <table className="w-full h-full text-center">
             <thead className="border-y border-black-200">
               <tr className="h-[1.4375rem]">

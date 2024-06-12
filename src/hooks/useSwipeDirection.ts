@@ -1,13 +1,8 @@
-import { useEffect, useState } from 'react';
+import { MutableRefObject, useEffect, useState } from 'react';
 
-export default function useSwipeDirection() {
-  let calendar: HTMLDivElement | null = null;
+export default function useSwipeDirection(calendar: MutableRefObject<HTMLDivElement | null>) {
   const [direction, setDirection] = useState('');
   let initialX: number | null = null;
-
-  if (typeof document !== 'undefined') {
-    calendar = document.querySelector('#calendar');
-  }
 
   function initTouch(e: TouchEvent) {
     initialX = e.changedTouches[0].pageX;
@@ -24,9 +19,9 @@ export default function useSwipeDirection() {
       const diffX = initialX - currentX;
       initialX = null;
 
-      if (diffX < -20) {
+      if (diffX < -10) {
         setDirection('right');
-      } else if (diffX > 20) {
+      } else if (diffX > 10) {
         setDirection('left');
       } else {
         setDirection('');
@@ -41,9 +36,9 @@ export default function useSwipeDirection() {
       let diffX = initialX - currentX;
       initialX = null;
 
-      if (diffX < -20) {
+      if (diffX < -10) {
         setDirection('right');
-      } else if (diffX > 20) {
+      } else if (diffX > 10) {
         setDirection('left');
       } else {
         setDirection('');
@@ -52,15 +47,15 @@ export default function useSwipeDirection() {
   }
 
   useEffect(() => {
-    calendar?.addEventListener('touchstart', initTouch);
-    calendar?.addEventListener('touchend', swipeTouchDirection);
-    calendar?.addEventListener('mousedown', initClick);
-    calendar?.addEventListener('mouseup', swipeMouseDirection);
+    calendar.current?.addEventListener('touchstart', initTouch);
+    calendar.current?.addEventListener('touchend', swipeTouchDirection);
+    calendar.current?.addEventListener('mousedown', initClick);
+    calendar.current?.addEventListener('mouseup', swipeMouseDirection);
     return () => {
-      calendar?.removeEventListener('touchstart', initTouch);
-      calendar?.removeEventListener('touchend', swipeTouchDirection);
-      calendar?.removeEventListener('mousedown', initClick);
-      calendar?.removeEventListener('mouseup', swipeMouseDirection);
+      calendar.current?.removeEventListener('touchstart', initTouch);
+      calendar.current?.removeEventListener('touchend', swipeTouchDirection);
+      calendar.current?.removeEventListener('mousedown', initClick);
+      calendar.current?.removeEventListener('mouseup', swipeMouseDirection);
     };
   }, [initTouch, swipeTouchDirection, initClick, swipeMouseDirection]);
 

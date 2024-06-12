@@ -19,7 +19,6 @@ export default function useSetOptions({
   const lastYear = Number(lastDate.slice(0, 4));
   const startMonth = Number(startDate.slice(4, 6));
   const lastMonth = Number(lastDate.slice(4, 6));
-  console.log(startDate, lastDate);
 
   const getMonthOptions = (year: number) => {
     if (year === startYear && year === lastYear) {

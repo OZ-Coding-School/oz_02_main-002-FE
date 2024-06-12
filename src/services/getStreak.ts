@@ -2,9 +2,9 @@ import { AxiosError } from 'axios';
 import { calendarClient } from './instance';
 import { useQuery } from '@tanstack/react-query';
 
-const fetchPostList = async (userId: number | undefined) => {
+const fetchStreak = async (userId: number | undefined) => {
   try {
-    const response = await calendarClient.get(`/posts/2`, {
+    const response = await calendarClient.get(`/posts/calendar/2`, {
       withCredentials: true,
     });
     console.log(response.data);
@@ -23,10 +23,10 @@ const fetchPostList = async (userId: number | undefined) => {
   }
 };
 
-export const getPostsList = (userId: number | undefined) => {
+export const getStreak = (userId: number | undefined) => {
   const { data, isLoading, error, refetch } = useQuery({
-    queryKey: ['postsList', userId],
-    queryFn: () => fetchPostList(userId),
+    queryKey: ['streak', userId],
+    queryFn: async () => await fetchStreak(userId),
   });
   return { data, isLoading, error, refetch };
 };
