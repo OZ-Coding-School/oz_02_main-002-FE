@@ -24,6 +24,8 @@ const Nickname = () => {
   useEffect(() => {
     const csrfToken = getCookieValue('csrftoken');
     const token = getCookieValue('access_token');
+    console.log(csrfToken);
+    console.log(accessToken);
     if (token) {
       setAccessToken(token);
     }
@@ -34,6 +36,8 @@ const Nickname = () => {
 
   useEffect(() => {
     const fetchUserInfo = async () => {
+      console.log(csrfToken);
+      console.log(accessToken);
       if (!accessToken) return;
       try {
         const response = await axios.get('https://api.oz-02-main-04.xyz/api/v1/users/myinfo/', {
