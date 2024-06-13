@@ -6,9 +6,10 @@ import MusicInput from '@/components/todo/MusicInput';
 import Timer from '@/components/todo/Timer';
 import ToDoInsert from '@/components/todo/ToDoInsert';
 import ToDoListItem from '@/components/todo/ToDoListItem';
-import axios from 'axios';
-import React, { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
+import { axios } from '@/services/instance';
+import React, { useCallback, useRef, useState } from 'react';
 import { IoMusicalNotesOutline } from 'react-icons/io5';
+import { useDeleteTodo, useTodos } from './useTodos';
 
 export interface TodoType {
   todo_item: string;
@@ -17,12 +18,13 @@ export interface TodoType {
 }
 
 function Page() {
-  const [todos, setTodos] = useState<TodoType[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [modalIndex, setModalIndex] = useState<number>();
   const [editString, setEditString] = useState<string>();
   const [musicTitle, setMusicTitle] = useState<string | undefined>();
   const [musicUrl, setMusicUrl] = useState<string>('');
+  const { data: todos = [] } = useTodos();
+  const { mutateAsync: deleteTodo } = useDeleteTodo();
 
   const id = useRef(1);
   const onInsert = useCallback(
@@ -32,23 +34,13 @@ function Page() {
           const edit = todos.find(v => v.id === modalIndex);
           if (edit !== undefined) {
             edit.todo_item = text;
-            setTodos([...todos]);
           }
-          await axios.put(`https://api.oz-02-main-04.xyz/api/v1/posts/todo/1/${modalIndex}`, {
+          await axios.put(`posts/todo/1/${modalIndex}`, {
             todo_item: text,
           });
           setEditString(undefined);
           setModalIndex(undefined);
         } else {
-          const todo = {
-            todo_item: text,
-            id: id.current,
-            done: false,
-          };
-          await axios.post('https://api.oz-02-main-04.xyz/api/v1/posts/todo/1', todo);
-          const res = await axios.get('https://api.oz-02-main-04.xyz/api/v1/posts/todo/1');
-          setTodos(res.data);
-          ++id.current;
         }
       } else {
         alert('TODO를 적어주세요!');
@@ -72,10 +64,7 @@ function Page() {
 
   const onRemove = useCallback(
     async (id?: number) => {
-      if (id != undefined) {
-        setTodos(todos.filter(todo => todo.id !== id));
-      }
-      await axios.delete(`https://api.oz-02-main-04.xyz/api/v1/posts/todo/1/${id}`);
+      deleteTodo(id!);
       setIsModalOpen(false);
       setModalIndex(undefined);
     },
@@ -98,40 +87,13 @@ function Page() {
       const checked = todos.find(v => v.id === id);
       if (checked !== undefined) {
         checked.done = !checked.done;
-        await axios.put(`https://api.oz-02-main-04.xyz/api/v1/posts/todo/1/${id}`, {
+        await axios.put(`posts/todo/1/${id}`, {
           done: checked.done,
         });
-        setTodos([...todos]);
       }
     },
     [todos],
   );
-
-  useEffect(() => {
-    const fetchTodo = async () => {
-      try {
-        const response = await axios.get('https://api.oz-02-main-04.xyz/api/v1/posts/todo/1');
-        // const user = await axios.get('https://api.oz-02-main-04.xyz/api/v1/users/');
-        // console.log(user);
-        setTodos(response.data);
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    fetchTodo();
-  }, []);
-
-  // useEffect(() => {
-  //   const fetchMusic = async () => {
-  //     try {
-  //       const response = await axios.get('https://api.oz-02-main-04.xyz/api/v1/posts/music/1');
-  //       console.log(response.data);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-  //   fetchMusic();
-  // }, []);
 
   return (
     <div className="w-full h-full">
