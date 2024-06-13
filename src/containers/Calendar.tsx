@@ -10,6 +10,7 @@ import { useAtomValue } from 'jotai';
 import { userAtom } from '@/atoms/atoms';
 import { postType } from '@/types/PostType';
 import useSetOptions from '@/hooks/useSetOptions';
+import { useRouter } from 'next/navigation';
 
 export default function Calendar() {
   const today = new Date().getDate();
@@ -32,6 +33,7 @@ export default function Calendar() {
     setCurrentMonth,
   });
   const user = useAtomValue(userAtom);
+  const router = useRouter();
 
   useEffect(() => {
     if (posts !== undefined) {
@@ -117,17 +119,19 @@ export default function Calendar() {
                   <tr key={j} className="w-full h-[3.0625rem] border-y border-black-200">
                     {week_arr.map((day, i) => {
                       const isToday = today === Number(day) && todayMonth === currentMonth && todayYear === currentYear;
-                      const hasPosts = postsList.some(
+                      const postOnThisDate = postsList.find(
                         post =>
                           Number(post.todo_date.slice(0, 4)) === currentYear &&
                           Number(post.todo_date.slice(5, 7)) === currentMonth &&
                           Number(post.todo_date.slice(8, 10)) === Number(day),
                       );
+                      const hasPosts = !!postOnThisDate;
+                      const postId = postOnThisDate ? postOnThisDate.id : null;
                       return (
                         <td
                           key={i}
                           className={`w-[3.1875rem] h-full text-xs ${i !== 0 && i !== 6 && 'border-[0.0313rem]'} align-middle text-center border-black-200 `}>
-                          <button disabled={!hasPosts}>
+                          <button disabled={!hasPosts} onClick={() => router.push('/todolist')}>
                             <div
                               className={`w-[1.125rem] h-[1.125rem] rounded-full flex justify-center items-center ${isToday ? 'bg-primary-500 text-white' : ''} ${!hasPosts ? 'text-black-300' : ''} mx-auto`}>
                               {day}
