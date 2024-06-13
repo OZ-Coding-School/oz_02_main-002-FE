@@ -1,4 +1,4 @@
-export interface postType {
+export interface PostType {
   created_at: string;
   d_day: number | null;
   feeling_status: number;

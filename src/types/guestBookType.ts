@@ -1,10 +1,10 @@
-export interface guestBookListType {
+export interface GuestBookListType {
   name: string;
   date: string;
   content: string;
 }
 
-export interface nickNameListType {
+export interface NickNameListType {
   id: number;
   nickname: string;
 }

@@ -41,7 +41,7 @@ export default function useSetOptions({
     } else if (currentMonth >= monthOptions[monthOptions.length - 1]) {
       setCurrentMonth(monthOptions[monthOptions.length - 1]);
     }
-  }, [monthOptions]);
+  }, [monthOptions, currentMonth, setCurrentMonth]);
 
   return { yearOptions, monthOptions };
 }

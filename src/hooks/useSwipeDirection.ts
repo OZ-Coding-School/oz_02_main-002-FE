@@ -57,7 +57,7 @@ export default function useSwipeDirection(calendar: MutableRefObject<HTMLDivElem
       calendar.current?.removeEventListener('mousedown', initClick);
       calendar.current?.removeEventListener('mouseup', swipeMouseDirection);
     };
-  }, [initTouch, swipeTouchDirection, initClick, swipeMouseDirection]);
+  }, [calendar, initTouch, swipeTouchDirection, initClick, swipeMouseDirection]);
 
   return { direction, setDirection };
 }

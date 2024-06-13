@@ -1,4 +1,4 @@
-export default function useGetTodayDate(): string {
+export default function GetTodayDate(): string {
   const today = new Date();
 
   const year = today.getFullYear();

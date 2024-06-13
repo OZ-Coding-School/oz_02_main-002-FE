@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import { calendarClient } from './instance';
 import { useQuery } from '@tanstack/react-query';
+import { PostType } from '@/types/PostType';
 
 const fetchPostList = async () => {
   try {

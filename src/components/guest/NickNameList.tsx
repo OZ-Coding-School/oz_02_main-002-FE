@@ -1,4 +1,4 @@
-import { nickNameListType } from '@/types/guestBookType';
+import { nickNameListType } from '@/types/GuestBookType';
 import { useRouter } from 'next/navigation';
 
 export default function NickNameList({ nicknameList }: { nicknameList: nickNameListType[] }) {

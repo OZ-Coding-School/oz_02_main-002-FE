@@ -1,9 +1,9 @@
 'use client';
 import DeleteAlert from '@/components/guest/DeleteAlert';
 import GuestListItem from '@/components/guest/GuestListItem';
-import useGetTodayDate from '@/hooks/useGetTodayDate';
 import useMoveScrollBottom from '@/hooks/useMoveScrollBottom';
-import { guestBookListType } from '@/types/guestBookType';
+import GetTodayDate from '@/libs/GetTodayDate';
+import { GuestBookListType } from '@/types/GuestBookType';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -11,7 +11,7 @@ import { FaUserFriends } from 'react-icons/fa';
 
 export default function Guest() {
   const [userInput, setUserInput] = useState('');
-  const [guestBook, setGuestBook] = useState<guestBookListType[]>([]);
+  const [guestBook, setGuestBook] = useState<GuestBookListType[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [isUser, setIsUser] = useState(true);
   const scrollRef = useMoveScrollBottom(guestBook);
@@ -76,7 +76,7 @@ export default function Guest() {
     (e: React.FormEvent) => {
       setUserInput('');
       e.preventDefault();
-      setGuestBook([...guestBook, { name: '닉네임', date: useGetTodayDate(), content: userInput }]);
+      setGuestBook([...guestBook, { name: '닉네임', date: GetTodayDate(), content: userInput }]);
       console.log(guestBook);
     },
     [userInput, guestBook],
