@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 
 const fetchNicknameList = async (nickname: string) => {
   try {
-    const response = await calendarClient.get(`https://api.oz-02-main-04.xyz/api/v1/guestbook/${nickname}`, {
+    const response = await calendarClient.get(`guestbook/${nickname}`, {
       withXSRFToken: true,
     });
     console.log(response.data);
@@ -27,6 +27,7 @@ export const getSearchNickName = (nickname: string) => {
   const { data, isLoading, error, refetch } = useQuery({
     queryKey: ['nicknameList', nickname],
     queryFn: () => fetchNicknameList(nickname),
+    enabled: false,
   });
   return { data, isLoading, error, refetch };
 };

@@ -15,7 +15,7 @@ export const calendarClient = axios.create({
 
 calendarClient.interceptors.request.use(
   config => {
-    config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4MjkwOTAyLCJpYXQiOjE3MTgyNTQ5MDIsImp0aSI6IjE1OTIwOGYwMmQ1YzQzODE5YzU0MGFjNmJlMjkyYzcyIiwidXNlcl9pZCI6Mn0.a13_TIc4u7SZcvBFVI12bnvdBrYalg_-4vSwLNyWlOs`;
+    config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4Mjk5NTQwLCJpYXQiOjE3MTgyNjM1NDAsImp0aSI6Ijg5NTBmYmY5NTM1NzQxNTdiZDA4NjkwMjljNDk0OWZlIiwidXNlcl9pZCI6MTF9.QtmX9r-N0__MKNPbg04SoDV_MgwGLOH9k0ijH7MVPQo`;
     return config;
   },
   error => {
