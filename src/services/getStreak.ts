@@ -4,8 +4,8 @@ import { useQuery } from '@tanstack/react-query';
 
 const fetchStreak = async (userId: number | undefined) => {
   try {
-    const response = await calendarClient.get(`/posts/calendar/2`, {
-      withCredentials: true,
+    const response = await calendarClient.get(`posts/calendar`, {
+      withXSRFToken: true,
     });
     console.log(response.data);
     return response.data;
