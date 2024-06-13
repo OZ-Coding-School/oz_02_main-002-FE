@@ -23,10 +23,9 @@ const fetchPostList = async () => {
   }
 };
 
-export const getPostsList = () => {
-  const { data, isLoading, error, refetch } = useQuery({
+export const useGetPostsList = () => {
+  return useQuery({
     queryKey: ['postsList'],
     queryFn: () => fetchPostList(),
   });
-  return { data, isLoading, error, refetch };
 };

@@ -10,7 +10,7 @@ function getLastDayOfMonth(year: number, month: number) {
   return lastDay;
 }
 
-export default function useCreateCalendar(year: number, month: number) {
+export default function CreateCalendar(year: number, month: number) {
   let firstDay = getFirstDayOfMonth(year, month);
   let lastDay = getLastDayOfMonth(year, month);
   let arrCalendar = [];

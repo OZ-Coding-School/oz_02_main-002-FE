@@ -23,10 +23,9 @@ const fetchStreak = async () => {
   }
 };
 
-export const getStreak = () => {
-  const { data, isLoading, error, refetch } = useQuery({
+export const useGetStreak = () => {
+  return useQuery({
     queryKey: ['streak'],
     queryFn: async () => await fetchStreak(),
   });
-  return { data, isLoading, error, refetch };
 };

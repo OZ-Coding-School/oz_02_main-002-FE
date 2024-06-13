@@ -2,15 +2,15 @@
 import ProgressBar from '@/components/monthly/ProgressBar';
 import SelectBox from '@/components/SelectBox';
 import { DAY_OF_WEEK } from '@/constants';
-import useCreateCalendar from '@/hooks/useCreateCalendar';
 import useSwipeDirection from '@/hooks/useSwipeDirection';
 import { useEffect, useRef, useState } from 'react';
-import { getPostsList } from '../services/getPostsList';
 import { useAtomValue } from 'jotai';
 import { userAtom } from '@/atoms/atoms';
 import { postType } from '@/types/PostType';
 import useSetOptions from '@/hooks/useSetOptions';
 import { useRouter } from 'next/navigation';
+import { useGetPostsList } from '@/services/getPostsList';
+import CreateCalendar from '@/libs/CreateCalendar';
 
 export default function Calendar() {
   const today = new Date().getDate();
@@ -18,7 +18,7 @@ export default function Calendar() {
   const todayYear = new Date().getFullYear();
   const [currentYear, setCurrentYear] = useState(todayYear);
   const [currentMonth, setCurrentMonth] = useState(todayMonth);
-  const { data: posts, isLoading: isPostsLoading, error: isPostsError } = getPostsList();
+  const { data: posts, isLoading: isPostsLoading, error: isPostsError } = useGetPostsList();
   const [calendar, setCalendar] = useState<string[][]>([]);
   const [postsList, setPostsList] = useState<postType[]>([]);
   const [startDate, setStartDate] = useState('');
@@ -70,7 +70,7 @@ export default function Calendar() {
       setCurrentYear(prev => prev + 1);
       setCurrentMonth(1);
     }
-    setCalendar(() => useCreateCalendar(currentYear, currentMonth));
+    setCalendar(() => CreateCalendar(currentYear, currentMonth));
   }, [currentYear, currentMonth]);
 
   if (isPostsLoading) {

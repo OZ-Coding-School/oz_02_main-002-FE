@@ -23,11 +23,10 @@ const fetchNicknameList = async (nickname: string) => {
   }
 };
 
-export const getSearchNickName = (nickname: string) => {
-  const { data, isLoading, error, refetch } = useQuery({
+export const useGetSearchNickName = (nickname: string) => {
+  return useQuery({
     queryKey: ['nicknameList', nickname],
     queryFn: () => fetchNicknameList(nickname),
     enabled: false,
   });
-  return { data, isLoading, error, refetch };
 };
