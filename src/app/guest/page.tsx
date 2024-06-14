@@ -3,6 +3,7 @@ import DeleteAlert from '@/components/guest/DeleteAlert';
 import GuestListItem from '@/components/guest/GuestListItem';
 import useMoveScrollBottom from '@/hooks/useMoveScrollBottom';
 import getTodayDate from '@/libs/getTodayDate';
+import { useGetGuestBook } from '@/services/getGuestBook';
 import { GuestBookListType } from '@/types/guestBookType';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
@@ -14,6 +15,7 @@ export default function Guest() {
   const [guestBook, setGuestBook] = useState<GuestBookListType[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [isUser, setIsUser] = useState(true);
+  // const { data: guestBook, isLoading: isGuestBookLoading, error: isGuestBookError } = useGetGuestBook(11);
   const scrollRef = useMoveScrollBottom(guestBook);
   const router = useRouter();
   let guestBookSampleList = [
