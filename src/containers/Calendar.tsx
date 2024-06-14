@@ -9,7 +9,6 @@ import { userAtom } from '@/atoms/atoms';
 import useSetOptions from '@/hooks/useSetOptions';
 import { useRouter } from 'next/navigation';
 import { useGetPostsList } from '@/services/getPostsList';
-import { PostType } from '@/types/calendarType';
 import createCalendar from '@/libs/createCalendar';
 
 export default function Calendar() {
@@ -19,8 +18,8 @@ export default function Calendar() {
   const [currentYear, setCurrentYear] = useState(todayYear);
   const [currentMonth, setCurrentMonth] = useState(todayMonth);
   const { data: posts, isLoading: isPostsLoading, error: isPostsError } = useGetPostsList();
+  const postsList = posts ?? [];
   const [calendar, setCalendar] = useState<string[][]>([]);
-  const [postsList, setPostsList] = useState<PostType[]>([]);
   const [startDate, setStartDate] = useState('');
   const [lastDate, setLastDate] = useState('');
   const calendarRef = useRef<HTMLDivElement | null>(null);
@@ -37,8 +36,7 @@ export default function Calendar() {
 
   useEffect(() => {
     if (posts !== undefined) {
-      setPostsList(posts);
-      const dateList = posts.map((res: PostType) => res.todo_date.replace(/[^0-9]/g, ''));
+      const dateList = posts.map(res => Number(res.todo_date.replace(/[^0-9]/g, '')));
       setStartDate(Math.min(...dateList).toString());
       setLastDate(Math.max(...dateList).toString());
     } else {
