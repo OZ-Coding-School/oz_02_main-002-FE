@@ -1,5 +1,6 @@
 export interface GuestBookListType {
   id: number;
+  user_nickname: string;
   created_at: string;
   updated_at: string;
   content: string;
@@ -10,6 +11,7 @@ export interface GuestBookListType {
 export interface GuestListItemProps {
   item: {
     id: number;
+    user_nickname: string;
     created_at: string;
     updated_at: string;
     content: string;
@@ -17,6 +19,11 @@ export interface GuestListItemProps {
     user: number;
   };
   modalHandler: () => void;
+}
+
+export interface postGuestBookProps {
+  content: string;
+  guestbook_user: number;
 }
 
 export interface NickNameListType {

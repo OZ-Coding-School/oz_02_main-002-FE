@@ -6,7 +6,7 @@ export default function GuestListItem({ item, modalHandler }: GuestListItemProps
   return (
     <div className="w-full min-h-[4.25rem] h-fit px-[0.9375rem] pt-2">
       <div className="h-6 flex justify-start items-center">
-        <div className="pr-2 text-primary-400">{item.user}</div>
+        <div className="pr-2 text-primary-400">{item.user_nickname}</div>
         <div className="text-xs text-black-200">{updateDate}</div>
         <button className="ml-auto" onClick={modalHandler}>
           <AiOutlineDelete size={18} className="text-black-200 active:text-errorRed" />

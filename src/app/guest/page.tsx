@@ -5,6 +5,7 @@ import GuestListItem from '@/components/guest/GuestListItem';
 import useMoveScrollBottom from '@/hooks/useMoveScrollBottom';
 import getTodayDate from '@/libs/getTodayDate';
 import { useGetGuestBook } from '@/services/getGuestBook';
+import { usePostGuestBook } from '@/services/postGuestBook';
 import { GuestBookListType } from '@/types/guestBookType';
 import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
@@ -14,62 +15,18 @@ import { FaUserFriends } from 'react-icons/fa';
 
 export default function Guest() {
   const [userInput, setUserInput] = useState('');
-  // const [guestBook, setGuestBook] = useState<GuestBookListType[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [isUser, setIsUser] = useState(true);
-  const { data: guestBook, isLoading: isGuestBookLoading, error: isGuestBookError } = useGetGuestBook(1);
+  const { data: guestBook, isLoading: isGuestBookLoading, error: isGuestBookError } = useGetGuestBook(5);
   const guestBookList = guestBook ?? [];
+  const { mutateAsync: postGuestBook } = usePostGuestBook(5);
   const scrollRef = useMoveScrollBottom(guestBookList);
   const router = useRouter();
   const accessToken = useAtomValue(accessTokenAtom);
-  console.log('accessToken', accessToken);
-  let guestBookSampleList = [
-    {
-      name: '방명록1',
-      date: '2021-08-01',
-      content: '안녕하세요',
-    },
-    {
-      name: '방명록2',
-      date: '2021-08-02',
-      content:
-        '안녕하세요~ 방명록 내용 뭘 써야될까 으아ㅏ아아ㅏㅏ아ㅏㅏ아ㅏㅏㅇ 어디까지 적을 수 있는 거예요...? 더 길게 적어야되는데 뭘 적어야될까 루루루루루ㅜ루루룰룰',
-    },
-    {
-      name: '방명록3',
-      date: '2021-08-03',
-      content: '안녕하세요',
-    },
-    {
-      name: '방명록4',
-      date: '2021-08-04',
-      content: '안녕하세요',
-    },
-    {
-      name: '방명록5',
-      date: '2021-08-05',
-      content: '안녕하세요 띄어쓰기 되나..?    안되네 엔터도 안먹히네',
-    },
-    {
-      name: '방명록6',
-      date: '2021-08-05',
-      content: '안녕하세요 띄어쓰기 되나..?    안되네 엔터도 안먹히네',
-    },
-    {
-      name: '방명록7',
-      date: '2021-08-05',
-      content: '안녕하세요 띄어쓰기 되나..?    안되네 엔터도 안먹히네',
-    },
-    {
-      name: '방명록8',
-      date: '2021-08-05',
-      content: '안녕하세요 엔터 들어갈 수 있게 해야되나..?',
-    },
-  ];
 
-  // useEffect(() => {
-  //   setGuestBook(guestBookSampleList);
-  // }, []);
+  useEffect(() => {
+    console.log('accessToken', accessToken);
+  }, []);
 
   const modalHandler = () => {
     setModalOpen(!modalOpen);
@@ -83,8 +40,7 @@ export default function Guest() {
     (e: React.FormEvent) => {
       setUserInput('');
       e.preventDefault();
-      // setGuestBook([...guestBook, { name: '닉네임', date: getTodayDate(), content: userInput }]);
-      console.log(guestBook);
+      postGuestBook({ content: userInput, guestbook_user: 5 });
     },
     [userInput, guestBook],
   );

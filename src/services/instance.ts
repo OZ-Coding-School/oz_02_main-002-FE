@@ -12,6 +12,7 @@ export const axios = _axios.create({
   withCredentials: true,
   headers: {
     Accept: 'application/json',
+    'Content-Type': 'application/json',
   },
 });
 
@@ -23,7 +24,7 @@ axios.interceptors.request.use(
     //   config.headers.Authorization = `Bearer ${accessToken}`;
     //   config.headers['x-csrftoken'] = `${csrfToken}`;
     // }
-    config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4Mzg5MDI5LCJpYXQiOjE3MTgzNTMwMjksImp0aSI6IjRiY2QyZTU0MzFjNjQ3MjA5Y2E2ZmUyNzgzNThkMWRmIiwidXNlcl9pZCI6NX0.UZSqmrmc50fLJy9zeHOvoPpP8l4jRdrtkEOSSYIcHNo`;
+    config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NDAxMTE5LCJpYXQiOjE3MTgzNjUxMTksImp0aSI6IjIxN2E2NzUwYmUwODQxNjRhYzY1MDRiODY0MjcwZWY1IiwidXNlcl9pZCI6NX0.5_jsufbIg93GMs8wfnQM1oDGKyrff1oENfA5sB2KI00`;
     return config;
   },
   error => {
