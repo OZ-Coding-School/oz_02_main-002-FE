@@ -16,12 +16,12 @@ export default function createCalendar(year: number, month: number) {
   let arrCalendar = [];
   let newCalendar = [];
 
-  // 1일 시작 전에 공백 채우기
+  // 1일 시작 전 날짜 공백 채우기
   for (let i = 0; i < firstDay; i++) {
     arrCalendar.push('');
   }
 
-  // 날짜 넣어주기
+  // 각 날짜 넣어주기
   for (let i = 1; i <= lastDay; i++) {
     arrCalendar.push(String(i));
   }
