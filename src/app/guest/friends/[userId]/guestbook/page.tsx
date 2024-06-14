@@ -1,7 +1,7 @@
 'use client';
 import GuestListItem from '@/components/guest/GuestListItem';
 import useMoveScrollBottom from '@/hooks/useMoveScrollBottom';
-import GetTodayDate from '@/libs/GetTodayDate';
+import getTodayDate from '@/libs/getTodayDate';
 import { GuestBookListType } from '@/types/GuestBookType';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
@@ -74,7 +74,7 @@ export default function Guest() {
     (e: React.FormEvent) => {
       setUserInput('');
       e.preventDefault();
-      setGuestBook([...guestBook, { name: '닉네임', date: GetTodayDate(), content: userInput }]);
+      setGuestBook([...guestBook, { name: '닉네임', date: getTodayDate(), content: userInput }]);
       console.log(guestBook);
     },
     [userInput, guestBook],

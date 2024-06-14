@@ -9,8 +9,8 @@ import { userAtom } from '@/atoms/atoms';
 import useSetOptions from '@/hooks/useSetOptions';
 import { useRouter } from 'next/navigation';
 import { useGetPostsList } from '@/services/getPostsList';
-import CreateCalendar from '@/libs/CreateCalendar';
-import { PostType } from '@/types/CalendarType';
+import { PostType } from '@/types/calendarType';
+import createCalendar from '@/libs/createCalendar';
 
 export default function Calendar() {
   const today = new Date().getDate();
@@ -70,7 +70,7 @@ export default function Calendar() {
       setCurrentYear(prev => prev + 1);
       setCurrentMonth(1);
     }
-    setCalendar(() => CreateCalendar(currentYear, currentMonth));
+    setCalendar(() => createCalendar(currentYear, currentMonth));
   }, [currentYear, currentMonth]);
 
   if (isPostsLoading) {

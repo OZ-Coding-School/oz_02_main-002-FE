@@ -1,5 +1,5 @@
 import useOutsideClick from '@/hooks/useOutsideClick';
-import { SelectBoxProps } from '@/types/CalendarType';
+import { SelectBoxProps } from '@/types/calendarType';
 import { useState } from 'react';
 
 export default function SelectBox({ type, possibleList, currentProps, setCurrentProps }: SelectBoxProps) {

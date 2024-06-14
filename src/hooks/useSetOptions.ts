@@ -1,4 +1,4 @@
-import { SetOptionsProps } from '@/types/CalendarType';
+import { SetOptionsProps } from '@/types/calendarType';
 import { useEffect } from 'react';
 
 export default function useSetOptions({

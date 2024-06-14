@@ -1,7 +1,7 @@
 'use client';
 import NickNameList from '@/components/guest/NickNameList';
 import { useGetSearchNickName } from '@/services/getSearchNickName';
-import { NickNameListType } from '@/types/GuestBookType';
+import { NickNameListType } from '@/types/guestBookType';
 import { useCallback, useState } from 'react';
 import { MdSearch } from 'react-icons/md';
 
