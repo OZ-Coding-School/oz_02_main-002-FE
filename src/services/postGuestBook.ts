@@ -3,9 +3,13 @@ import { axios } from './instance';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchGuestBook = async (user_id: number) => {
-  const response = await axios.get<GuestBookListType[]>(`guestbook/comments/${user_id}`);
-  console.log(response.data);
-  return response.data;
+  try {
+    const response = await axios.get<GuestBookListType[]>(`guestbook/comments/${user_id}`);
+    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const useGetGuestBook = (user_id: number) => {

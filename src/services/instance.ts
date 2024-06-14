@@ -1,4 +1,4 @@
-import { accessTokenAtom } from '@/atoms/atoms';
+import { accessTokenAtom, csrfTokenAtom } from '@/atoms/atoms';
 import _axios, { AxiosError } from 'axios';
 import { useAtom } from 'jotai';
 
@@ -17,7 +17,13 @@ export const axios = _axios.create({
 
 axios.interceptors.request.use(
   config => {
-    config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4Mzc3NTE5LCJpYXQiOjE3MTgzNDE1MTksImp0aSI6Ijc0MzNhOWFmMThkZDRhODdhMDkzZGI1NGRjY2Y3ZGZkIiwidXNlcl9pZCI6MTF9.f4QoiC8mD0IP-1xGJJ_bPlmSCVEZ4nOjB5puySJSCb8`;
+    // const [accessToken] = useAtom(accessTokenAtom);
+    // const [csrfToken] = useAtom(csrfTokenAtom);
+    // if (accessToken && csrfToken) {
+    //   config.headers.Authorization = `Bearer ${accessToken}`;
+    //   config.headers['x-csrftoken'] = `${csrfToken}`;
+    // }
+    config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4Mzg5MDI5LCJpYXQiOjE3MTgzNTMwMjksImp0aSI6IjRiY2QyZTU0MzFjNjQ3MjA5Y2E2ZmUyNzgzNThkMWRmIiwidXNlcl9pZCI6NX0.UZSqmrmc50fLJy9zeHOvoPpP8l4jRdrtkEOSSYIcHNo`;
     return config;
   },
   error => {

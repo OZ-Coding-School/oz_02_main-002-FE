@@ -1,10 +1,12 @@
 'use client';
+import { accessTokenAtom } from '@/atoms/atoms';
 import DeleteAlert from '@/components/guest/DeleteAlert';
 import GuestListItem from '@/components/guest/GuestListItem';
 import useMoveScrollBottom from '@/hooks/useMoveScrollBottom';
 import getTodayDate from '@/libs/getTodayDate';
 import { useGetGuestBook } from '@/services/getGuestBook';
 import { GuestBookListType } from '@/types/guestBookType';
+import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
@@ -12,12 +14,15 @@ import { FaUserFriends } from 'react-icons/fa';
 
 export default function Guest() {
   const [userInput, setUserInput] = useState('');
-  const [guestBook, setGuestBook] = useState<GuestBookListType[]>([]);
+  // const [guestBook, setGuestBook] = useState<GuestBookListType[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [isUser, setIsUser] = useState(true);
-  // const { data: guestBook, isLoading: isGuestBookLoading, error: isGuestBookError } = useGetGuestBook(11);
-  const scrollRef = useMoveScrollBottom(guestBook);
+  const { data: guestBook, isLoading: isGuestBookLoading, error: isGuestBookError } = useGetGuestBook(1);
+  const guestBookList = guestBook ?? [];
+  const scrollRef = useMoveScrollBottom(guestBookList);
   const router = useRouter();
+  const accessToken = useAtomValue(accessTokenAtom);
+  console.log('accessToken', accessToken);
   let guestBookSampleList = [
     {
       name: '방명록1',
@@ -62,9 +67,9 @@ export default function Guest() {
     },
   ];
 
-  useEffect(() => {
-    setGuestBook(guestBookSampleList);
-  }, []);
+  // useEffect(() => {
+  //   setGuestBook(guestBookSampleList);
+  // }, []);
 
   const modalHandler = () => {
     setModalOpen(!modalOpen);
@@ -78,7 +83,7 @@ export default function Guest() {
     (e: React.FormEvent) => {
       setUserInput('');
       e.preventDefault();
-      setGuestBook([...guestBook, { name: '닉네임', date: getTodayDate(), content: userInput }]);
+      // setGuestBook([...guestBook, { name: '닉네임', date: getTodayDate(), content: userInput }]);
       console.log(guestBook);
     },
     [userInput, guestBook],
@@ -108,7 +113,7 @@ export default function Guest() {
           )}
           <div ref={scrollRef} className="w-full h-full overflow-auto scroll-bar">
             <ul className="py-2">
-              {guestBook.map((item, index) => {
+              {guestBookList.map((item, index) => {
                 return (
                   <li key={index} className="border-b-[0.5px] border-black-200">
                     <GuestListItem item={item} modalHandler={modalHandler} />

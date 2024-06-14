@@ -1,14 +1,20 @@
 export interface GuestBookListType {
-  name: string;
-  date: string;
+  id: number;
+  created_at: string;
+  updated_at: string;
   content: string;
+  guestbook: number;
+  user: number;
 }
 
 export interface GuestListItemProps {
   item: {
-    name: string;
-    date: string;
+    id: number;
+    created_at: string;
+    updated_at: string;
     content: string;
+    guestbook: number;
+    user: number;
   };
   modalHandler: () => void;
 }
