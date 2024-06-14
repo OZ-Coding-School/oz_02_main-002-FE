@@ -2,7 +2,7 @@
 import GuestListItem from '@/components/guest/GuestListItem';
 import useMoveScrollBottom from '@/hooks/useMoveScrollBottom';
 import getTodayDate from '@/libs/getTodayDate';
-import { GuestBookListType } from '@/types/GuestBookType';
+import { GuestBookListType } from '@/types/guestBookType';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';

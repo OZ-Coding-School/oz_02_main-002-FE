@@ -2,7 +2,7 @@
 import DeleteAlert from '@/components/guest/DeleteAlert';
 import GuestListItem from '@/components/guest/GuestListItem';
 import useMoveScrollBottom from '@/hooks/useMoveScrollBottom';
-import getTodayDate from '@/libs/GetTodayDate';
+import getTodayDate from '@/libs/getTodayDate';
 import { GuestBookListType } from '@/types/guestBookType';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
