@@ -6,11 +6,11 @@ import useSwipeDirection from '@/hooks/useSwipeDirection';
 import { useEffect, useRef, useState } from 'react';
 import { useAtomValue } from 'jotai';
 import { userAtom } from '@/atoms/atoms';
-import { PostType } from '@/types/PostType';
 import useSetOptions from '@/hooks/useSetOptions';
 import { useRouter } from 'next/navigation';
 import { useGetPostsList } from '@/services/getPostsList';
 import CreateCalendar from '@/libs/CreateCalendar';
+import { PostType } from '@/types/CalendarType';
 
 export default function Calendar() {
   const today = new Date().getDate();
