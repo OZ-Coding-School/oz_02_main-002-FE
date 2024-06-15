@@ -3,13 +3,11 @@ import { accessTokenAtom } from '@/atoms/atoms';
 import DeleteAlert from '@/components/guest/DeleteAlert';
 import GuestListItem from '@/components/guest/GuestListItem';
 import useMoveScrollBottom from '@/hooks/useMoveScrollBottom';
-import getTodayDate from '@/libs/getTodayDate';
 import { useGetGuestBook } from '@/services/getGuestBook';
 import { usePostGuestBook } from '@/services/postGuestBook';
-import { GuestBookListType } from '@/types/guestBookType';
 import { useAtomValue } from 'jotai';
 import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { FaUserFriends } from 'react-icons/fa';
 
@@ -23,6 +21,7 @@ export default function Guest() {
   const scrollRef = useMoveScrollBottom(guestBookList);
   const router = useRouter();
   const accessToken = useAtomValue(accessTokenAtom);
+  const itemId = useRef(0);
 
   useEffect(() => {
     console.log('accessToken', accessToken);
@@ -48,7 +47,7 @@ export default function Guest() {
   return (
     <main className="w-full h-full relative">
       <div className="w-full h-full bg-saturdayBlue absolute">배경</div>
-      {modalOpen && <DeleteAlert onClose={modalHandler} />}
+      {modalOpen && <DeleteAlert onClose={modalHandler} itemId={itemId} />}
       <div className="w-full h-[calc(100%-2.6875rem)] absolute z-10 pt-11 px-[1.4375rem] flex flex-col">
         {isUser && (
           <button
@@ -72,7 +71,7 @@ export default function Guest() {
               {guestBookList.map((item, index) => {
                 return (
                   <li key={index} className="border-b-[0.5px] border-black-200">
-                    <GuestListItem item={item} modalHandler={modalHandler} />
+                    <GuestListItem item={item} modalHandler={modalHandler} itemId={itemId} />
                   </li>
                 );
               })}
