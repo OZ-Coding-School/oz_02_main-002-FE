@@ -11,16 +11,16 @@ import { RiContactsBook2Line } from 'react-icons/ri';
 import MainPetButton from '@/components/main/MainPetButton';
 import PetStateMessage from '@/components/main/PetStateMessage';
 import PetProfile from '@/components/main/PetProfile';
-import axios from 'axios';
-import { petType } from '@/types/petType';
+import { PetType } from '@/types/petType';
+import { axios } from '@/services/instance';
 
 function Main() {
-  const [petData, setPetData] = useState<petType>();
+  const [petData, setPetData] = useState<PetType>();
   const [backgroundImageURL, setBackgroundImageURL] = useState('');
 
   useEffect(() => {
     axios
-      .get<petType>('https://api.oz-02-main-04.xyz/api/v1/pets/mypet/1/')
+      .get<PetType>('pets/mypet/')
       .then(response => {
         setPetData(response.data);
         const backgroundImageURL = response.data.primary_background.image;
@@ -37,8 +37,8 @@ function Main() {
         <div className="wrap-section bg-cover" style={{ backgroundImage: `url:(${backgroundImageURL})` }}>
           <header className="h-1/6 pt-8 pb-2 bg-white">
             <PetProfile
-              name={petData.primary_pet.pet_name}
-              level={petData.pet_rating}
+              name={petData.activ_pet.pet_name}
+              level={petData.pet_rating.level}
               progress={petData.point}
               maxProgress={100}
             />
@@ -49,7 +49,7 @@ function Main() {
               <MainPetButton icon={<BiCloset size="30" />} label="보관함" />
               <div className="">
                 <MainPetButton icon={<BsBox2Heart size="28" />} label="랜덤박스" />
-                <div className=" text-sm font-bold">{petData?.random_boxes}개 남음</div>
+                <div className=" text-sm font-bold">{petData.random_boxes}개 남음</div>
               </div>
             </section>
 
