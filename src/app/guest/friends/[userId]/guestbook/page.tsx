@@ -16,7 +16,7 @@ export default function FriendGuestBook() {
   const [modalOpen, setModalOpen] = useState(false);
   const { data: guestBook, isLoading: isGuestBookLoading, error: isGuestBookError } = useGetGuestBook(1);
   const guestBookList = guestBook ?? [];
-  const { mutateAsync: postGuestBook } = usePostGuestBook(1);
+  const { mutateAsync: postGuestBook } = usePostGuestBook();
   const scrollRef = useMoveScrollBottom(guestBookList);
   const router = useRouter();
   const [selectedUser, setSelectedUser] = useAtom(selectedUserAtom);
@@ -39,7 +39,7 @@ export default function FriendGuestBook() {
     (e: React.FormEvent) => {
       setUserInput('');
       e.preventDefault();
-      postGuestBook({ content: userInput, guestbook_user: 5 });
+      postGuestBook({ user_id: 1, content: userInput, guestbook_user: 1 });
     },
     [userInput, postGuestBook],
   );

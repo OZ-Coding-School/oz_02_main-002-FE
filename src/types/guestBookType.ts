@@ -26,6 +26,7 @@ export interface GuestListItemProps {
 }
 
 export interface postGuestBookProps {
+  user_id: number;
   content: string;
   guestbook_user: number;
 }

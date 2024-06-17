@@ -17,7 +17,7 @@ export default function Guest() {
   const [isUser, setIsUser] = useState(true);
   const { data: guestBook, isLoading: isGuestBookLoading, error: isGuestBookError } = useGetGuestBook(1);
   const guestBookList = guestBook ?? [];
-  const { mutateAsync: postGuestBook } = usePostGuestBook(1);
+  const { mutateAsync: postGuestBook } = usePostGuestBook();
   const scrollRef = useMoveScrollBottom(guestBookList);
   const router = useRouter();
   const accessToken = useAtomValue(accessTokenAtom);
@@ -39,7 +39,7 @@ export default function Guest() {
     (e: React.FormEvent) => {
       setUserInput('');
       e.preventDefault();
-      postGuestBook({ content: userInput, guestbook_user: 5 });
+      postGuestBook({ user_id: 1, content: userInput, guestbook_user: 1 });
     },
     [userInput, postGuestBook],
   );
