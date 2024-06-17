@@ -37,7 +37,7 @@ function Main() {
         <div className="wrap-section bg-cover" style={{ backgroundImage: `url:(${backgroundImageURL})` }}>
           <header className="h-1/6 pt-8 pb-2 bg-white">
             <PetProfile
-              name={petData.activ_pet.pet_name}
+              name={petData.active_pet.pet_name}
               level={petData.pet_rating.level}
               progress={petData.point}
               maxProgress={100}

@@ -6,7 +6,7 @@ export interface PetType {
   };
   point: number;
   hunger_degree_status: string;
-  activ_pet: {
+  active_pet: {
     pet_name: string;
     image: string;
   };
