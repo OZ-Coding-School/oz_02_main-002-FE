@@ -1,7 +1,7 @@
 import { GuestListItemProps } from '@/types/guestBookType';
 import { AiOutlineDelete } from 'react-icons/ai';
 
-export default function GuestListItem({ item, modalHandler, itemId }: GuestListItemProps) {
+export default function GuestListItem({ item, modalHandler, itemId, selectedUserId }: GuestListItemProps) {
   const updateDate = item.updated_at.slice(0, 10);
   return (
     <div className="w-full min-h-[4.25rem] h-fit px-[0.9375rem] pt-2">

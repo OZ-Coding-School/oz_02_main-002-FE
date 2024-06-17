@@ -22,6 +22,7 @@ export interface GuestListItemProps {
   };
   modalHandler: () => void;
   itemId: MutableRefObject<number>;
+  selectedUserId: number | undefined;
 }
 
 export interface postGuestBookProps {
@@ -37,4 +38,9 @@ export interface NickNameListType {
 export interface DeleteAlertProps {
   onClose: () => void;
   itemId: MutableRefObject<number>;
+}
+
+export interface SelectedUser {
+  id: number;
+  nickname: string;
 }

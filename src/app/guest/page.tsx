@@ -15,9 +15,9 @@ export default function Guest() {
   const [userInput, setUserInput] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
   const [isUser, setIsUser] = useState(true);
-  const { data: guestBook, isLoading: isGuestBookLoading, error: isGuestBookError } = useGetGuestBook(5);
+  const { data: guestBook, isLoading: isGuestBookLoading, error: isGuestBookError } = useGetGuestBook(1);
   const guestBookList = guestBook ?? [];
-  const { mutateAsync: postGuestBook } = usePostGuestBook(5);
+  const { mutateAsync: postGuestBook } = usePostGuestBook(1);
   const scrollRef = useMoveScrollBottom(guestBookList);
   const router = useRouter();
   const accessToken = useAtomValue(accessTokenAtom);
@@ -41,7 +41,7 @@ export default function Guest() {
       e.preventDefault();
       postGuestBook({ content: userInput, guestbook_user: 5 });
     },
-    [userInput, guestBook],
+    [userInput, postGuestBook],
   );
 
   return (
@@ -71,7 +71,7 @@ export default function Guest() {
               {guestBookList.map((item, index) => {
                 return (
                   <li key={index} className="border-b-[0.5px] border-black-200">
-                    <GuestListItem item={item} modalHandler={modalHandler} itemId={itemId} />
+                    <GuestListItem item={item} modalHandler={modalHandler} itemId={itemId} selectedUserId={0} />
                   </li>
                 );
               })}

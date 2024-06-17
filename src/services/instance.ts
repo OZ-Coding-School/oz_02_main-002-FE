@@ -24,7 +24,7 @@ axios.interceptors.request.use(
     //   config.headers.Authorization = `Bearer ${accessToken}`;
     //   config.headers['x-csrftoken'] = `${csrfToken}`;
     // }
-    config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NDAxMTE5LCJpYXQiOjE3MTgzNjUxMTksImp0aSI6IjIxN2E2NzUwYmUwODQxNjRhYzY1MDRiODY0MjcwZWY1IiwidXNlcl9pZCI6NX0.5_jsufbIg93GMs8wfnQM1oDGKyrff1oENfA5sB2KI00`;
+    config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NjM4MTQ1LCJpYXQiOjE3MTg2MDIxNDUsImp0aSI6IjEyM2FiNGJkNjE5NTQ3NWE5OGE1NTI5MjBkZmRiMjMyIiwidXNlcl9pZCI6MTR9.elvQZS_nBmsEXEfiU3vOPP7DGwaPKwD2Hh4dPYwexT8`;
     return config;
   },
   error => {

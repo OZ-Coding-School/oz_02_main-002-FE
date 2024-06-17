@@ -4,8 +4,6 @@ import SelectBox from '@/components/SelectBox';
 import { DAY_OF_WEEK } from '@/constants';
 import useSwipeDirection from '@/hooks/useSwipeDirection';
 import { useEffect, useRef, useState } from 'react';
-import { useAtomValue } from 'jotai';
-import { userAtom } from '@/atoms/atoms';
 import useSetOptions from '@/hooks/useSetOptions';
 import { useRouter } from 'next/navigation';
 import { useGetPostsList } from '@/services/getPostsList';
@@ -31,7 +29,6 @@ export default function Calendar() {
     currentMonth,
     setCurrentMonth,
   });
-  const user = useAtomValue(userAtom);
   const router = useRouter();
 
   useEffect(() => {
