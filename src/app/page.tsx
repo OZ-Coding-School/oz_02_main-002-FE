@@ -23,6 +23,7 @@ function Main() {
       .get<PetType>('pets/mypet/')
       .then(response => {
         setPetData(response.data);
+        console.log(response.data);
         const backgroundImageURL = response.data.primary_background.image;
         setBackgroundImageURL(backgroundImageURL);
       })
