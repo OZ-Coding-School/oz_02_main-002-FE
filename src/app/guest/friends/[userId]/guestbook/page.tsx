@@ -1,15 +1,13 @@
 'use client';
-import { accessTokenAtom, selectedUserAtom } from '@/atoms/atoms';
+import { selectedUserAtom } from '@/atoms/atoms';
 import DeleteAlert from '@/components/guest/DeleteAlert';
 import GuestListItem from '@/components/guest/GuestListItem';
 import useMoveScrollBottom from '@/hooks/useMoveScrollBottom';
 import { useGetGuestBook } from '@/services/getGuestBook';
 import { usePostGuestBook } from '@/services/postGuestBook';
-import { useAtom, useAtomValue } from 'jotai';
-import { useRouter } from 'next/navigation';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useAtomValue } from 'jotai';
+import { useCallback, useRef, useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
-import { FaUserFriends } from 'react-icons/fa';
 
 export default function FriendGuestBook() {
   const [userInput, setUserInput] = useState('');
@@ -18,14 +16,8 @@ export default function FriendGuestBook() {
   const guestBookList = guestBook ?? [];
   const { mutateAsync: postGuestBook } = usePostGuestBook();
   const scrollRef = useMoveScrollBottom(guestBookList);
-  const router = useRouter();
-  const [selectedUser, setSelectedUser] = useAtom(selectedUserAtom);
-  const accessToken = useAtomValue(accessTokenAtom);
+  const selectedUser = useAtomValue(selectedUserAtom);
   const itemId = useRef(0);
-
-  useEffect(() => {
-    console.log('accessToken', accessToken);
-  }, [accessToken]);
 
   const modalHandler = () => {
     setModalOpen(!modalOpen);
@@ -59,12 +51,7 @@ export default function FriendGuestBook() {
               {guestBookList.map((item, index) => {
                 return (
                   <li key={index} className="border-b-[0.5px] border-black-200">
-                    <GuestListItem
-                      item={item}
-                      modalHandler={modalHandler}
-                      itemId={itemId}
-                      selectedUserId={selectedUser?.id}
-                    />
+                    <GuestListItem item={item} modalHandler={modalHandler} itemId={itemId} />
                   </li>
                 );
               })}

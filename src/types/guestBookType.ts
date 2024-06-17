@@ -22,7 +22,6 @@ export interface GuestListItemProps {
   };
   modalHandler: () => void;
   itemId: MutableRefObject<number>;
-  selectedUserId: number | undefined;
 }
 
 export interface postGuestBookProps {

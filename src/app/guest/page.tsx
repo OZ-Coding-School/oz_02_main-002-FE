@@ -14,7 +14,6 @@ import { FaUserFriends } from 'react-icons/fa';
 export default function Guest() {
   const [userInput, setUserInput] = useState('');
   const [modalOpen, setModalOpen] = useState(false);
-  const [isUser, setIsUser] = useState(true);
   const { data: guestBook, isLoading: isGuestBookLoading, error: isGuestBookError } = useGetGuestBook(1);
   const guestBookList = guestBook ?? [];
   const { mutateAsync: postGuestBook } = usePostGuestBook();
@@ -49,29 +48,22 @@ export default function Guest() {
       <div className="w-full h-full bg-saturdayBlue absolute">배경</div>
       {modalOpen && <DeleteAlert onClose={modalHandler} itemId={itemId} />}
       <div className="w-full h-[calc(100%-2.6875rem)] absolute z-10 pt-11 px-[1.4375rem] flex flex-col">
-        {isUser && (
-          <button
-            className="h-[3.3125rem] bg-white bg-opacity-70 rounded-[0.625rem] font-semibold flex items-center ml-auto px-[0.625rem]"
-            onClick={() => router.push('/guest/friends')}>
-            친구 방명록 놀러가기
-            <span className="ml-2">
-              <FaUserFriends size={32} />
-            </span>
-          </button>
-        )}
+        <button
+          className="h-[3.3125rem] bg-white bg-opacity-70 rounded-[0.625rem] font-semibold flex items-center ml-auto px-[0.625rem]"
+          onClick={() => router.push('/guest/friends')}>
+          친구 방명록 놀러가기
+          <span className="ml-2">
+            <FaUserFriends size={32} />
+          </span>
+        </button>
         <div
-          className={`w-[21.5rem] ${isUser ? 'h-[34.6875rem] mt-[1.375rem]' : 'h-[39.625rem]'} rounded-[5px] bg-white border border-black-200 relative flex flex-col`}>
-          {!isUser && (
-            <div className="w-[21.5rem] h-[3.6rem] border-b-[0.5px] border-black-200 text-lg font-semibold flex justify-center items-center">
-              까피까피츄님의 방명록
-            </div>
-          )}
+          className={`w-[21.5rem] h-[34.6875rem] mt-[1.375rem] rounded-[5px] bg-white border border-black-200 relative flex flex-col`}>
           <div ref={scrollRef} className="w-full h-full overflow-auto scroll-bar">
             <ul className="py-2">
               {guestBookList.map((item, index) => {
                 return (
                   <li key={index} className="border-b-[0.5px] border-black-200">
-                    <GuestListItem item={item} modalHandler={modalHandler} itemId={itemId} selectedUserId={0} />
+                    <GuestListItem item={item} modalHandler={modalHandler} itemId={itemId} />
                   </li>
                 );
               })}
