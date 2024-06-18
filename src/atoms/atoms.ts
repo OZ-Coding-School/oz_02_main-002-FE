@@ -10,5 +10,7 @@ export interface User {
 export const nicknameAtom = atom('nick');
 export const userAtom = atom<User | null>(null);
 export const accessTokenAtom = atom<string | null>(null);
+
+export const refreshTokenAtom = atom<string | null>(null);
 export const csrfTokenAtom = atom<string | null>(null);
 export const selectedUserAtom = atom<SelectedUser | null>(null);
