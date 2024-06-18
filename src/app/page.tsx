@@ -79,7 +79,7 @@ function Main() {
   const handleFeedRice = () => {
     if(petData && petData?.rice_quantity > 0) {
       axios
-        .post('https://api.oz-02-main-04.xyz/api/v1/pets/feed-rice/1/')
+        .post('https://api.oz-02-main-04.xyz/api/v1/pets/feed-rice/')
         .then(response => {
           setRiceCount(riceCount - 1);
           console.log(response.data);
@@ -96,7 +96,7 @@ function Main() {
   const handleFeedSnack = () => {
     if(petData && petData.snack_quantity > 0) {
       axios
-        .post('https://api.oz-02-main-04.xyz/api/v1/pets/feed-snack/1/')
+        .post('https://api.oz-02-main-04.xyz/api/v1/pets/feed-snack/')
         .then(response => {
           setSnackCount(snackCount - 1);
           console.log(response.data);
