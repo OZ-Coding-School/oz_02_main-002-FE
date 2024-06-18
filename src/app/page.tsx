@@ -106,7 +106,6 @@ function Main() {
     fetchUserData();
   }, [accessToken, csrf, setUser]);
 
-  // 배포 (axios 변경)
     // useEffect(() => {
     //   axios
     //     .get('https://api.oz-02-main-04.xyz/api/v1/users/myinfo/')
