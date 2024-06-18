@@ -17,4 +17,14 @@ export interface PetType {
   random_boxes: number;
   rice_quantity: number;
   snack_quantity: number;
-}
+};
+
+export interface RandomItem {
+  message: string;
+  random_boxes: number;
+  output_item: {
+    type: string;
+    name: string;
+    quantity: number;
+  }
+};
