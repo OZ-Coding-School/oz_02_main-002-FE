@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { userAtom } from '@/atoms/atoms';
 import { useAtom } from 'jotai';
 import NavBottom from '@/components/NavBottom';
+import { useRouter } from 'next/navigation';
 
 interface User {
   id?: number;
@@ -23,7 +24,7 @@ const Nickname = () => {
   const [csrfToken, setCsrfToken] = useState<string | null>(null);
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [userInfo, setUserInfo] = useAtom(userAtom);
-
+  const router = useRouter();
   useEffect(() => {
     const csrfToken = getCookieValue('csrftoken');
     const token = getCookieValue('access_token');
@@ -90,15 +91,16 @@ const Nickname = () => {
         alert('닉네임이 변경되었습니다.');
         setUser({ ...user, 닉네임: newNickname });
       }
+      router.push('/profile');
     } catch (error) {
       console.error(error);
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+    <div className="flex flex-col items-center justify-center min-h-screen  p-4">
       {user ? (
-        <div className="w-full max-w-xs">
+        <div className="wrap-section w-full max-w-xs">
           <h1 className="text-2xl font-bold text-purple-600 mb-4">닉네임 변경하기</h1>
           <div className="mb-4">
             <p className="text-sm font-medium text-gray-700">계정: {user?.계정}</p>

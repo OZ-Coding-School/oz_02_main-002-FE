@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAtom } from 'jotai';
-import { userAtom, accessTokenAtom, csrfTokenAtom } from '@/atoms/atoms';
+import { userAtom, accessTokenAtom, csrfTokenAtom, nicknameAtom } from '@/atoms/atoms';
 import Image from 'next/image';
 import NavBottom from '@/components/NavBottom';
 import Link from 'next/link';
@@ -24,9 +24,9 @@ function deleteCookie(name: any, path: any, domain: any) {
 export default function Page() {
   const [user, setUser] = useAtom<User | null>(userAtom);
   const [accessToken, setAccessToken] = useAtom<string | null>(accessTokenAtom);
-  const [csrf, setCsrf] = useState<string | null>(null);
+  const [csrf, setCsrf] = useAtom<string | null>(csrfTokenAtom);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [nickname, setNickname] = useAtom(nicknameAtom);
   useEffect(() => {
     const fetchTokens = async () => {
       try {
@@ -101,10 +101,12 @@ export default function Page() {
   }
 
   return (
-    <div className="h-full">
+    <div className="h-full wrap-section">
+      {' '}
+      {nickname}
       {user ? (
         <>
-          <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+          <div className="wrap-section flex flex-col items-center justify-center min-h-screen p-4">
             <p className="text-2xl font-bold text-purple-600 mb-4">안녕하세요! {user.닉네임} 님</p>
             <hr className="border-purple-600 w-full mb-4" />
             <ul className="space-y-4">
@@ -131,23 +133,20 @@ export default function Page() {
               </li>
             </ul>
             <hr className="border-purple-600 w-full my-4" />
-          </div>
-          <div className="wrap-section">
-            <NavBottom />
+            <NavBottom />{' '}
           </div>
         </>
       ) : (
         <>
-          <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
+          <div className=" flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
             <p className="text-2xl font-bold text-purple-600 mb-4">로그인 해주세요.</p>
             <button
               onClick={handleKakaoLogin}
               className="mt-6 px-4 py-2 bg-purple-600 text-white rounded-md shadow-sm hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
               카카오 로그인
             </button>
-            <div className="wrap-section mt-4">
-              <NavBottom />
-            </div>
+
+            <NavBottom />
           </div>
         </>
       )}
