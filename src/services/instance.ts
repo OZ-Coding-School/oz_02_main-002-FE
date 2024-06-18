@@ -28,8 +28,8 @@ export const axios = _axios.create({
 export const setupAxiosInterceptors = () => {
   axios.interceptors.request.use(
     config => {
-      const accessToken = useSetAccessToken();
-      const csrfToken = useSetCSRFToken();
+      const [accessToken] = useAtom(accessTokenAtom);
+      const [csrfToken] = useAtom(csrfTokenAtom);
       if (accessToken && csrfToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
         config.headers['x-csrftoken'] = `${csrfToken}`;
