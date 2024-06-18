@@ -14,6 +14,9 @@ export interface TodoType {
   todo_item: string;
   id: number | undefined;
   done: boolean;
+  created_at: string;
+  updated_at: string;
+  post: number;
 }
 
 function Page() {
