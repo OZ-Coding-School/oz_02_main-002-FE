@@ -2,31 +2,25 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAtom } from 'jotai';
-import { userAtom, accessTokenAtom, csrfTokenAtom } from '@/atoms/atoms';
+import { userAtom, accessTokenAtom, csrfTokenAtom, nicknameAtom } from '@/atoms/atoms';
 import Image from 'next/image';
 import NavBottom from '@/components/NavBottom';
 import Link from 'next/link';
 import { getCookieValue } from '@/libs/getCookieValue';
+import { deleteCookie } from '@/libs/deleteCookieValue';
 
-interface User {
+export interface User {
   id: number;
   계정: string;
   닉네임: string;
 }
 
-function deleteCookie(name: any, path: any, domain: any) {
-  if (getCookieValue(name)) {
-    document.cookie =
-      name + '=; Max-Age=-99999999;' + (path ? '; path=' + path : '') + (domain ? '; domain=' + domain : '');
-  }
-}
-
 export default function Page() {
   const [user, setUser] = useAtom<User | null>(userAtom);
   const [accessToken, setAccessToken] = useAtom<string | null>(accessTokenAtom);
-  const [csrf, setCsrf] = useState<string | null>(null);
+  const [csrf, setCsrf] = useAtom<string | null>(csrfTokenAtom);
   const [isLoading, setIsLoading] = useState(true);
-
+  const [nickname, setNickname] = useAtom(nicknameAtom);
   useEffect(() => {
     const fetchTokens = async () => {
       try {
@@ -102,6 +96,7 @@ export default function Page() {
 
   return (
     <div className="h-full wrap-section">
+      {' '}
       {user ? (
         <>
           <div className="wrap-section flex flex-col items-center justify-center min-h-screen p-4">
