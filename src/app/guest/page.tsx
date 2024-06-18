@@ -24,7 +24,7 @@ export default function Guest() {
 
   useEffect(() => {
     console.log('accessToken', accessToken);
-  }, []);
+  }, [accessToken]);
 
   const modalHandler = () => {
     setModalOpen(!modalOpen);

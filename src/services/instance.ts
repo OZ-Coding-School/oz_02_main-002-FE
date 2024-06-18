@@ -1,6 +1,12 @@
 import { accessTokenAtom, csrfTokenAtom } from '@/atoms/atoms';
 import _axios, { AxiosError } from 'axios';
 import { useAtom } from 'jotai';
+import { useEffect } from 'react';
+
+// useEffect(() => {
+//   const [accessToken] = useAtom(accessTokenAtom);
+//   const [csrfToken] = useAtom(csrfTokenAtom);
+// }, [third]);
 
 _axios.defaults.xsrfCookieName = 'csrftoken';
 _axios.defaults.xsrfHeaderName = 'X-CSRFTOKEN';
@@ -16,21 +22,23 @@ export const axios = _axios.create({
   },
 });
 
-axios.interceptors.request.use(
-  config => {
-    // const [accessToken] = useAtom(accessTokenAtom);
-    // const [csrfToken] = useAtom(csrfTokenAtom);
-    // if (accessToken && csrfToken) {
-    //   config.headers.Authorization = `Bearer ${accessToken}`;
-    //   config.headers['x-csrftoken'] = `${csrfToken}`;
-    // }
-    config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NjY1Njg2LCJpYXQiOjE3MTg2Mjk2ODYsImp0aSI6Ijk2OTg4ZmFiN2E4MzRjNDI4OTMyM2RkNGJhM2NkYzdjIiwidXNlcl9pZCI6MTR9.GbVLLzbM-RcSfCXkpRBFbhvfh_BSM0aaiHGBX2H92dU`;
-    return config;
-  },
-  error => {
-    return Promise.reject(error);
-  },
-);
+export const setupAxiosInterceptors = () => {
+  axios.interceptors.request.use(
+    config => {
+      const [accessToken] = useAtom(accessTokenAtom);
+      const [csrfToken] = useAtom(csrfTokenAtom);
+      if (accessToken && csrfToken) {
+        config.headers.Authorization = `Bearer ${useAtom(accessTokenAtom)}`;
+        config.headers['x-csrftoken'] = `${useAtom(csrfTokenAtom)}`;
+      }
+      // config.headers.Authorization = `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzE4NjY1Njg2LCJpYXQiOjE3MTg2Mjk2ODYsImp0aSI6Ijk2OTg4ZmFiN2E4MzRjNDI4OTMyM2RkNGJhM2NkYzdjIiwidXNlcl9pZCI6MTR9.GbVLLzbM-RcSfCXkpRBFbhvfh_BSM0aaiHGBX2H92dU`;
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    },
+  );
+};
 
 axios.interceptors.response.use(
   response => response,
