@@ -28,53 +28,56 @@ function Main() {
   const router = useRouter();
 
 // 배포 (axios 변경)
-  // useEffect(() => {
-  //   axios.get('https://api.oz-02-main-04.xyz/api/v1/users/myinfo/')
-  //   .then(response => {
-  //     if(response.status === 200) {
-  //       axios
-  //       .get<PetType>('https://api.oz-02-main-04.xyz/api/v1/pets/mypet/')
-  //       .then(response => {
-  //         setPetData(response.data);
-  //         console.log(response.data);
-  //         const backgroundImageURL = response.data.primary_background.image;
-  //         setBackgroundImageURL(backgroundImageURL);
-  //       })
-  //       .catch(error => {
-  //         console.log(error);
-  //       });
-  //     } else {
-  //       alert("로그인이 필요합니다.");
-  //       router.push('/introduce')
-  //     }
-  //     console.log(response.status)
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   })
-  // }, []);
+  useEffect(() => {
+    axios.get('https://api.oz-02-main-04.xyz/api/v1/users/myinfo/')
+    .then(response => {
+      if(response.status === 200) {
+        axios
+        .get<PetType>('https://api.oz-02-main-04.xyz/api/v1/pets/mypet/')
+        .then(response => {
+          setPetData(response.data);
+          console.log(response.data);
+          setBackgroundImageURL(response.data.primary_background.image);
+          setActivePetImageURL(response.data.active_pet.image);
+          setBoxCount(response.data.random_boxes);
+          setRiceCount(response.data.rice_quantity);
+          setSnackCount(response.data.snack_quantity);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      } else {
+        alert("로그인이 필요합니다.");
+        router.push('/introduce')
+      }
+      console.log(response.status)
+    })
+    .catch(error => {
+      console.log(error);
+    })
+  }, [router]);
 
 // 로컬테스트
-  useEffect(() => {
-    axios
-      .get<PetType>('https://api.oz-02-main-04.xyz/api/v1/pets/mypet/1')
-      .then(response => {
-        setPetData(response.data);
-        console.log(response.data);
-        setBackgroundImageURL(response.data.primary_background.image);
-        setActivePetImageURL(response.data.active_pet.image);
-        setBoxCount(response.data.random_boxes);
-        setRiceCount(response.data.rice_quantity);
-        setSnackCount(response.data.snack_quantity);
-      })
-      .catch(error => {
-        console.log(error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get<PetType>('https://api.oz-02-main-04.xyz/api/v1/pets/mypet/1')
+  //     .then(response => {
+  //       setPetData(response.data);
+  //       console.log(response.data);
+  //       setBackgroundImageURL(response.data.primary_background.image);
+  //       setActivePetImageURL(response.data.active_pet.image);
+  //       setBoxCount(response.data.random_boxes);
+  //       setRiceCount(response.data.rice_quantity);
+  //       setSnackCount(response.data.snack_quantity);
+  //     })
+  //     .catch(error => {
+  //       console.log(error);
+  //     });
+  // }, []);
 
   //밥주기
   const handleFeedRice = () => {
-    if(petData?.rice_quantity > 0) {
+    if(petData && petData?.rice_quantity > 0) {
       axios
         .post('https://api.oz-02-main-04.xyz/api/v1/pets/feed-rice/1/')
         .then(response => {
@@ -91,7 +94,7 @@ function Main() {
 
   //간식주기
   const handleFeedSnack = () => {
-    if(petData.snack_quantity > 0) {
+    if(petData && petData.snack_quantity > 0) {
       axios
         .post('https://api.oz-02-main-04.xyz/api/v1/pets/feed-snack/1/')
         .then(response => {

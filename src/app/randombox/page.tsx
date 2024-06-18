@@ -11,10 +11,24 @@ function RandomBox() {
   const [isBoxClicked, setIsBoxClicked] = useState(false);
   const [randomImage, setRandomImage] = useState('/randombox/box.png');
   const [randomItem, setRandomItem] = useState<RandomItem>();
+// 로컬테스트
+  // const handleboxClick = () => {
+  //   axios
+  //   .post('https://api.oz-02-main-04.xyz/api/v1/pets/open-random-box/1/')
+  //   .then(response => {
+  //     setIsBoxClicked(true);
+  //     setRandomItem(response.data);
+  //     console.log('randomitem 결과', response.data);
+  //   }) .catch(error => {
+  //     alert('보유한 랜덤박스가 없습니다.');
+  //     console.log(error);
+  //   })
+  // };
+
 
   const handleboxClick = () => {
     axios
-    .post('https://api.oz-02-main-04.xyz/api/v1/pets/open-random-box/1/')
+    .post('https://api.oz-02-main-04.xyz/api/v1/pets/open-random-box/')
     .then(response => {
       setIsBoxClicked(true);
       setRandomItem(response.data);
