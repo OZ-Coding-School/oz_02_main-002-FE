@@ -32,11 +32,12 @@ function Main() {
     axios.get('https://api.oz-02-main-04.xyz/api/v1/users/myinfo/')
     .then(response => {
       if(response.status === 200) {
+        console.log('유저잇습니다!! 200 회신')
         axios
         .get<PetType>('https://api.oz-02-main-04.xyz/api/v1/pets/mypet/')
         .then(response => {
           setPetData(response.data);
-          console.log(response.data);
+          console.log('유저정보가져오고난 후 펫타입리스폰', response.data);
           setBackgroundImageURL(response.data.primary_background.image);
           setActivePetImageURL(response.data.active_pet.image);
           setBoxCount(response.data.random_boxes);
@@ -44,16 +45,14 @@ function Main() {
           setSnackCount(response.data.snack_quantity);
         })
         .catch(error => {
-          console.log(error);
+          console.log('펫타입에러', error);
         });
-      } else {
-        alert("로그인이 필요합니다.");
-        router.push('/introduce')
       }
-      console.log(response.status)
     })
     .catch(error => {
-      console.log(error);
+      console.log('유저유무 에러', error);
+      alert("로그인이 필요합니다.");
+        router.push('/introduce')
     })
   }, [router]);
 
