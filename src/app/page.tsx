@@ -77,16 +77,17 @@ function Main() {
             console.log(petData);
           })
           .catch(error => {
-            console.error('펫타입에러', error);
+            console.error('펫에러', error);
+            if (!accessToken || !csrf) {
+              alert('로그인이 필요합니다.');
+              router.push('/introduce');
+              return;
+            }
           });
-      } catch (error) {
-        console.error('유저에러', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
->>>>>>>>> Temporary merge branch 2
-    fetchUserData();
+      })
+      .catch(error => {
+        console.error('유저에러', error.data)
+      })
   }, [accessToken, csrf]);
 
   //밥주기
