@@ -96,7 +96,7 @@ function Main() {
       axios
         .post('pets/feed-rice/')
         .then(response => {
-          setExperience(response.data.experience)
+          setExperience(response.data.experience);
           setRiceCount(riceCount - 1);
           console.log(response.data);
         })
@@ -114,7 +114,7 @@ function Main() {
       axios
         .post('pets/feed-snack/')
         .then(response => {
-          setExperience(response.data.experience)
+          setExperience(response.data.experience);
           setSnackCount(snackCount - 1);
           console.log(response.data);
         })
@@ -129,14 +129,11 @@ function Main() {
   return (
     <div className="w-full h-full ">
       {petData ? (
-        <div className="wrap-section bg-cover animate-fadeIn" style={{ backgroundImage: `url:(https://api.oz-02-main-04.xyz${backgroundImageURL})` }}>
+        <div
+          className="wrap-section bg-cover animate-fadeIn"
+          style={{ backgroundImage: `url:(https://api.oz-02-main-04.xyz${backgroundImageURL})` }}>
           <header className="h-1/6 pt-8 pb-2 bg-white">
-            <PetProfile
-              name={petName}
-              level={level}
-              progress={experience}
-              maxProgress={maxProgress}
-            />
+            <PetProfile name={petName} level={level} progress={experience} maxProgress={maxProgress} />
           </header>
 
           <main className="w-full h-5/6 ">
@@ -146,7 +143,13 @@ function Main() {
             </section>
 
             <section className="h-1/3 flex items-center">
-              <Image src={`https://api.oz-02-main-04.xyz${activePetImageURL}`} alt="pet" width={130} height={130} className="my-0 mx-auto" />
+              <Image
+                src={`https://api.oz-02-main-04.xyz${activePetImageURL}`}
+                alt="pet"
+                width={130}
+                height={130}
+                className="my-0 mx-auto"
+              />
             </section>
 
             <section className="h-1/3 p-3 text-center">
@@ -172,7 +175,7 @@ function Main() {
         </div>
       ) : (
         <div className="wrap-section text-center flex">
-          <div className='m-auto text-primary-500'>Loding...</div>
+          <div className="m-auto text-primary-500">Loding...</div>
         </div>
       )}
       <NavBottom />
