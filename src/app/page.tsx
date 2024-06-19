@@ -77,17 +77,16 @@ function Main() {
             console.log(petData);
           })
           .catch(error => {
-            console.error('펫에러', error);
-            if (!accessToken || !csrf) {
-              alert('로그인이 필요합니다.');
-              router.push('/introduce');
-              return;
-            }
+            console.error('펫타입에러', error);
           });
-      })
-      .catch(error => {
-        console.error('유저에러', error.data)
-      })
+      } catch (error) {
+        console.error('유저에러', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+>>>>>>>>> Temporary merge branch 2
+    fetchUserData();
   }, [accessToken, csrf]);
 
   //밥주기
@@ -131,7 +130,7 @@ function Main() {
       {petData ? (
         <div
           className="wrap-section bg-cover animate-fadeIn"
-          style={{ backgroundImage: `url:(https://api.oz-02-main-04.xyz${backgroundImageURL})` }}>
+          style={{ backgroundImage: `url(https://api.oz-02-main-04.xyz${backgroundImageURL})` }}>
           <header className="h-1/6 pt-8 pb-2 bg-white">
             <PetProfile name={petName} level={level} progress={experience} maxProgress={maxProgress} />
           </header>
