@@ -4,7 +4,6 @@ import '@/styles/reset.css';
 import '@/styles/globals.css';
 import { Provider } from 'jotai';
 import { ReactQueryClientProvider } from '@/components/ReactQueryClientProvider';
-import { setupAxiosInterceptors } from '@/services/instance';
 
 const notoSansKR = Noto_Sans_KR({ subsets: ['latin'], variable: '--font-noto' });
 
@@ -18,7 +17,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  setupAxiosInterceptors();
   return (
     <ReactQueryClientProvider>
       <html lang="en">

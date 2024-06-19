@@ -6,10 +6,9 @@ interface Props {
   setIsModalOpen(boolean: boolean): void;
   setMusicTitle(v: string): void;
   setMusicUrl: React.Dispatch<React.SetStateAction<string>>;
-  postId: number | undefined;
 }
 
-function SearchModal({ setIsModalOpen, setMusicTitle, setMusicUrl, postId }: Props) {
+function SearchModal({ setIsModalOpen, setMusicTitle, setMusicUrl }: Props) {
   const [value, setValue] = useState('');
   const [musicList, setMusicList] = useState<any[]>([]);
 
@@ -21,7 +20,7 @@ function SearchModal({ setIsModalOpen, setMusicTitle, setMusicUrl, postId }: Pro
   const onSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
     try {
-      const music = await axios.get(`https://api.oz-02-main-04.xyz/api/v1/posts/music/${postId}?query=${value}`);
+      const music = await axios.get(`https://api.oz-02-main-04.xyz/api/v1/posts/music/1?query=${value}`);
       setMusicList(music.data);
       console.log(musicList);
     } catch {
@@ -32,7 +31,7 @@ function SearchModal({ setIsModalOpen, setMusicTitle, setMusicUrl, postId }: Pro
   const onMusic = async (v: SetStateAction<any>, s: SetStateAction<any>, u: SetStateAction<any>) => {
     setMusicTitle(`${s} - ${v}`);
     setMusicUrl(u);
-    await axios.post('https://api.oz-02-main-04.xyz/api/v1/posts/music/3', { title: v, singer: s, song_url: u });
+    await axios.post('https://api.oz-02-main-04.xyz/api/v1/posts/music/1', { title: v, singer: s });
   };
 
   return (

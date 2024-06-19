@@ -1,9 +1,8 @@
-import { PostType } from '@/types/calendarType';
 import { axios } from './instance';
 import { useQuery } from '@tanstack/react-query';
 
 const fetchPostList = async () => {
-  const response = await axios.get<PostType[]>(`posts/`);
+  const response = await axios.get(`posts/`);
   console.log(response.data);
   return response.data;
 };

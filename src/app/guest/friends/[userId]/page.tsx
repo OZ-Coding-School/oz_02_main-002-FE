@@ -1,14 +1,12 @@
 'use client';
-import { selectedUserAtom } from '@/atoms/atoms';
 import MainPetButton from '@/components/main/MainPetButton';
-import { useAtomValue } from 'jotai';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { BiDonateHeart } from 'react-icons/bi';
 import { RiContactsBook2Line } from 'react-icons/ri';
 
-export default function FriendMain() {
-  const selectedUser = useAtomValue(selectedUserAtom);
-
+export default function NickNamePage() {
+  const pathname = usePathname();
   return (
     <div className="w-full h-full bg-[url(/background/spring.jpg)] bg-cover">
       <header className="h-1/6 pt-8 pb-2"></header>
@@ -22,11 +20,7 @@ export default function FriendMain() {
         <section className="h-1/3 p-3 text-center flex justify-center items-center">
           <div className="flex justify-center">
             <MainPetButton icon={<BiDonateHeart size="30" />} label="쓰다듬기" />
-            <MainPetButton
-              icon={<RiContactsBook2Line size="30" />}
-              label="방명록"
-              link={`/guest/friends/${selectedUser?.id}/guestbook`}
-            />
+            <MainPetButton icon={<RiContactsBook2Line size="30" />} label="방명록" />
           </div>
         </section>
       </main>
