@@ -27,7 +27,6 @@ export default function Friends() {
       if (!isNicknameLoading && !isNicknameError) {
         const { data } = await refetch();
         setNicknameList(data);
-        console.log(data);
       }
     },
     [isNicknameLoading, isNicknameError, refetch],
