@@ -57,11 +57,6 @@ function Main() {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (!accessToken || !csrf) {
-        alert('로그인이 필요합니다.');
-        router.push('/introduce');
-        return;
-      }
       try {
         const response = await axios.get('users/myinfo/')
         setUser(response.data);
@@ -94,10 +89,6 @@ function Main() {
   }, [accessToken, csrf]);
 
   // useEffect(() => {
-  //   if(!accessToken) {
-  //     alert('로그인이 필요합니다.');
-  //     router.push('/introduce');
-  //   } else {
   //   axios
   //     .get<PetType>('pets/mypet/')
   //     .then(response => {
@@ -116,7 +107,6 @@ function Main() {
   //     .catch(error => {
   //       console.log('펫타입에러', error);
   //     });
-  //   }
   // }, [accessToken])
 
   //밥주기
@@ -210,50 +200,3 @@ function Main() {
 }
 
 export default Main;
-
-  // useEffect(() => {
-  //   const fetchUserData = async () => {
-  //     if (!accessToken || !csrf) {
-  //       setIsLoading(false);
-  //       return;
-  //     }
-  //     try {
-  //       const response = await axios.get('https://api.oz-02-main-04.xyz/api/v1/users/myinfo/', {
-  //         withXSRFToken: true,
-  //         headers: {
-  //           'x-csrftoken': csrf!,
-  //           Authorization: `Bearer ${accessToken}`,
-  //         },
-  //       });
-  //       setUser(response.data);
-  //       console.log(response.data);
-  //       axios
-  //         .get<PetType>('https://api.oz-02-main-04.xyz/api/v1/pets/mypet/', {
-  //           withXSRFToken: true,
-  //           headers: {
-  //             'x-csrftoken': csrf!,
-  //             Authorization: `Bearer ${accessToken}`,
-  //           },
-  //         })
-  //         .then(response => {
-  //           setPetData(response.data);
-  //           setBackgroundImageURL(response.data.primary_background.image);
-  //           setActivePetImageURL(response.data.active_pet.image);
-  //           setBoxCount(response.data.random_boxes);
-  //           setRiceCount(response.data.rice_quantity);
-  //           setSnackCount(response.data.snack_quantity);
-  //           console.log(petData);
-  //         })
-  //         .catch(error => {
-  //           console.log('펫타입에러', error);
-  //         });
-  //     } catch (error) {
-  //       console.error('유저에러', error);
-  //       alert('로그인이 필요합니다.');
-  //       router.push('/introduce');
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-  //   fetchUserData();
-  // }, [accessToken, csrf]);
