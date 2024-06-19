@@ -19,8 +19,9 @@ function RandomBox() {
     .post('pets/open-random-box/')
     .then(response => {
       setIsBoxClicked(true);
-      setRandomName(response.data.output.item.name);
-      setRandomImage(response.data.output.itme.image)
+      setRandomItem(response.data);
+      setRandomName(response.data.output_item.name);
+      setRandomImage(response.data.output_item.image)
       console.log('randomitem 결과', response.data);
     }) .catch(error => {
       alert('보유한 랜덤박스가 없습니다.');
