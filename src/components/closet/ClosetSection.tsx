@@ -17,7 +17,7 @@ export default function ClosetSection({ selectedMenu }: { selectedMenu: string }
         {selectedMenu}
       </div>
       <div className="w-full h-fit p-[0.8125rem] grid grid-cols-3 gap-x-[1.125rem] gap-y-[0.8125rem]">
-        {accessoryList?.map((item, i) => {
+        {itemList?.map((item, i) => {
           return (
             <button key={i} className={`w-fit h-fit`}>
               <ClosetItem isSelected={selectedItemId === i} item={item} />
