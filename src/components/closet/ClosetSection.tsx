@@ -5,24 +5,24 @@ import { useGetBackground } from '@/services/closet/getBackground';
 import { useGetPet } from '@/services/closet/getPet';
 import { usePostBackground } from '@/services/closet/postBackground';
 import { usePostAccessory } from '@/services/closet/postAccessory';
-import { usePostPet } from '@/services/closet/postPet';
+import { ClosetSectionProps } from '@/types/closetType';
 
-export default function ClosetSection({ selectedMenu }: { selectedMenu: string }) {
+export default function ClosetSection({ selectedMenu, modalHandler, selectedItemName }: ClosetSectionProps) {
   const [selectedItemId, setSelectedItemId] = useState(0);
-  const { data: accessoryList, isLoading: isAccessoryLoading, error: isAccessoryError } = useGetAccessory();
-  const { data: backgroundList, isLoading: isBackgroundLoading, error: isBackgroundError } = useGetBackground();
-  const { data: petList, isLoading: isPetLoading, error: isPetError } = useGetPet();
+  const { data: accessoryList } = useGetAccessory();
+  const { data: backgroundList } = useGetBackground();
+  const { data: petList } = useGetPet();
   const { mutateAsync: postAccessory } = usePostAccessory();
   const { mutateAsync: postBackground } = usePostBackground();
-  const { mutateAsync: postPet } = usePostPet();
   const itemList = selectedMenu === '액세서리' ? accessoryList : selectedMenu === '배경화면' ? backgroundList : petList;
 
   const handlePostSelectItem = (itemName: string) => {
-    selectedMenu === '액세서리'
-      ? postAccessory({ item_name: itemName })
-      : selectedMenu === '배경화면'
-        ? postBackground({ item_name: itemName })
-        : postPet({ item_name: itemName });
+    selectedMenu === '액세서리' ? postAccessory({ item_name: itemName }) : postBackground({ item_name: itemName });
+  };
+
+  const handleSelectPet = (itemName: string) => {
+    modalHandler();
+    selectedItemName.current = itemName;
   };
 
   return (
@@ -37,7 +37,9 @@ export default function ClosetSection({ selectedMenu }: { selectedMenu: string }
               key={i}
               className={`w-fit h-fit`}
               disabled={item.item === '???'}
-              onClick={() => handlePostSelectItem(item.item)}>
+              onClick={() => {
+                selectedMenu === '펫 도감' ? handleSelectPet(item.item) : handlePostSelectItem(item.item);
+              }}>
               <ClosetItem isSelected={selectedItemId === i} item={item} />
             </button>
           );
