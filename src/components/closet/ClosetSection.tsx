@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import ClosetItem from './ClosetItem';
 import { useGetAccessory } from '@/services/closet/getAccessory';
 import { useGetBackground } from '@/services/closet/getBackground';
@@ -8,7 +7,6 @@ import { usePostAccessory } from '@/services/closet/postAccessory';
 import { ClosetSectionProps } from '@/types/closetType';
 
 export default function ClosetSection({ selectedMenu, modalHandler, selectedItemName }: ClosetSectionProps) {
-  const [selectedItemId, setSelectedItemId] = useState(0);
   const { data: accessoryList } = useGetAccessory();
   const { data: backgroundList } = useGetBackground();
   const { data: petList } = useGetPet();
@@ -40,7 +38,7 @@ export default function ClosetSection({ selectedMenu, modalHandler, selectedItem
               onClick={() => {
                 selectedMenu === '펫 도감' ? handleSelectPet(item.item) : handlePostSelectItem(item.item);
               }}>
-              <ClosetItem isSelected={selectedItemId === i} item={item} />
+              <ClosetItem isSelected={item.selected} item={item} />
             </button>
           );
         })}

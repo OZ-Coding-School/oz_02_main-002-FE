@@ -1,6 +1,7 @@
 import { MutableRefObject } from 'react';
 
 export interface ClosetItemType {
+  selected: boolean;
   item: string;
   image: string;
 }
@@ -8,6 +9,7 @@ export interface ClosetItemType {
 export interface ClosetItemProps {
   isSelected: boolean;
   item: {
+    selected: boolean;
     item: string;
     image: string;
   };
